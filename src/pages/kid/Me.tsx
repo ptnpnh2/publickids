@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAgreement, useFamily, useIncidents, useMe, useMomentum, useStages, useSubmissions, useTasks } from '@/hooks/useData';
+import { useAgreement, useFamily, useIncidents, useMe, useMomentum, useMoney, useStages, useSubmissions, useTasks } from '@/hooks/useData';
+import { SEASONS, seasonProgress } from '@/domain/quests';
+import { jarBalances } from '@/domain/money';
+import { moveBetweenJars } from '@/services/money';
+import { PageTitle, Ring } from '@/components/ui';
 import { Button, Card, Modal, Segmented, Toggle } from '@/components/ui';
 import { updateChildProfile, updateMember } from '@/services/family';
 import { COSMETICS } from '@/services/templates';
@@ -24,6 +28,7 @@ export default function Me() {
   const momentum = useMomentum(me?.id);
   const agreement = useAgreement();
   const incidents = useIncidents(me?.id);
+  const money = useMoney(me?.id);
   const [changeOpen, setChangeOpen] = useState(false);
   const [changeText, setChangeText] = useState('');
   const [reflectOpen, setReflectOpen] = useState(false);
@@ -47,7 +52,7 @@ export default function Me() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-extrabold">{t('nav.me')}</h1>
+      <PageTitle>{t('nav.me')}</PageTitle>
       <Card className="text-center">
         <div className="text-6xl">
           {c.avatar.emoji}
@@ -65,6 +70,37 @@ export default function Me() {
           })}
         </div>
         <p className="muted text-xs mt-2">{t('avatar.neverSad', { n: approvedCount })}</p>
+      </Card>
+
+      <Card>
+        {(() => {
+          const season = SEASONS.find((s) => s.id === c.season) ?? SEASONS[0];
+          const p = seasonProgress(season, approvedCount);
+          return (
+            <>
+              <div className="flex items-center justify-between gap-2">
+                <h2 className="font-extrabold">{season.emoji} {t('quest.title')}: {t(season.nameKey)}</h2>
+                <Ring value={p.done} max={p.total} size={48} stroke="var(--primary)" />
+              </div>
+              <p className="muted text-xs mt-1">{t('quest.neverExpires')}</p>
+              <div className="grid-tiles mt-3">
+                {[...p.creatures, ...p.gear].map((x) => (
+                  <div key={x.id} className="text-2xl text-center rounded-xl py-1" style={{ background: x.unlocked ? 'var(--accent-soft)' : 'var(--bg-2)', opacity: x.unlocked ? 1 : 0.35 }} title={x.unlocked ? '' : t('avatar.unlockAt', { n: x.at })}>
+                    {x.unlocked ? x.emoji : '❔'}
+                  </div>
+                ))}
+              </div>
+              {p.next && <p className="text-xs mt-2">{t('quest.next', { n: p.next.at - approvedCount, emoji: p.next.emoji })}</p>}
+              <div className="mt-3">
+                <div className="text-xs font-bold uppercase tracking-wide muted mb-1">{t('quest.castle')}</div>
+                <div className="text-2xl tracking-wider">{(c.castle ?? []).join('') || '🌱'}</div>
+                <p className="muted text-xs">{t('quest.castleHint')}</p>
+              </div>
+              <label className="label mt-3">{t('quest.pickSeason')}</label>
+              <Segmented value={season.id} onChange={(id) => set({ season: id })} options={SEASONS.map((s) => ({ value: s.id, label: `${s.emoji} ${t(s.nameKey)}` }))} />
+            </>
+          );
+        })()}
       </Card>
 
       <Card>
@@ -99,6 +135,35 @@ export default function Me() {
         <label className="label mt-3">{t('momentum.skin')}</label>
         <Segmented value={c.momentumSkin} onChange={(momentumSkin) => set({ momentumSkin })} options={[{ value: 'neutral', label: t('skin.neutral') }, { value: 'space', label: t('skin.space') }, { value: 'garden', label: t('skin.garden') }]} />
       </Card>
+
+      {family.settings.money.enabled && (
+        <Card>
+          {(() => {
+            const jars = jarBalances(money, me.id);
+            const cur = family.settings.money.currency;
+            return (
+              <>
+                <h2 className="font-extrabold">💶 {t('money.myMoney')}</h2>
+                <p className="muted text-xs">{t('money.childHint')}</p>
+                <div className="grid grid-cols-3 gap-2 mt-3">
+                  {(['save', 'spend', 'give'] as const).map((j) => (
+                    <div key={j} className="rounded-2xl p-2 text-center" style={{ background: 'var(--bg-2)' }}>
+                      <div className="text-xl">{{ save: '🏦', spend: '🛒', give: '🎁' }[j]}</div>
+                      <div className="display font-extrabold">{jars[j].toFixed(2)}</div>
+                      <div className="muted text-xs">{t(`money.jar.${j}`)} · {cur}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex gap-2 mt-3">
+                  <Button variant="secondary" className="text-sm" disabled={jars.spend < 1} onClick={() => moveBetweenJars(me.id, 'spend', 'save', Math.min(1, jars.spend))}>🛒→🏦 1</Button>
+                  <Button variant="secondary" className="text-sm" disabled={jars.save < 1} onClick={() => moveBetweenJars(me.id, 'save', 'give', Math.min(1, jars.save))}>🏦→🎁 1</Button>
+                </div>
+                <p className="muted text-xs mt-2">{t('money.interestNote', { pct: family.settings.money.interestPctMonthly })}</p>
+              </>
+            );
+          })()}
+        </Card>
+      )}
 
       <Card>
         <h2 className="font-bold mb-2">{t('me.stages')}</h2>
@@ -151,7 +216,7 @@ export default function Me() {
       <Card>
         <h2 className="font-bold mb-2">{t('me.settings')}</h2>
         <label className="label">{t('onboarding.theme')}</label>
-        <Segmented value={c.theme} onChange={(theme: ThemeName) => set({ theme })} options={[{ value: 'sunny', label: t('theme.sunny') }, { value: 'space', label: t('theme.space') }]} />
+        <Segmented value={c.theme} onChange={(theme: ThemeName) => set({ theme })} options={[{ value: 'sunny', label: t('theme.sunny') }, { value: 'space', label: t('theme.space') }, { value: 'forest', label: t('theme.forest') }, { value: 'ocean', label: t('theme.ocean') }]} />
         <label className="label mt-3">{t('onboarding.celebration')}</label>
         <Segmented value={c.celebration} onChange={(celebration: CelebrationStyle) => set({ celebration })} options={[{ value: 'quiet', label: t('celebration.quiet') }, { value: 'fun', label: t('celebration.fun') }, { value: 'big', label: t('celebration.big') }]} />
         <label className="label mt-3">{t('common.language')}</label>

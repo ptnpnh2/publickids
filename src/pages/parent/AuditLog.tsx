@@ -9,7 +9,7 @@ export default function AuditLog() {
   const who = (id: string) => (id === 'ai' ? '🤖 AI' : id === 'system' ? '⚙️' : members.find((m) => m.id === id)?.name ?? id.slice(0, 6));
   return (
     <div className="space-y-2">
-      <h1 className="text-2xl font-extrabold">{t('audit.title')}</h1>
+      <h1 className="page-title">{t('audit.title')}</h1>
       <p className="muted text-sm">{t('audit.explain')}</p>
       {entries.map((e) => (
         <Card key={e.id} className="text-sm py-2">

@@ -8,7 +8,7 @@ export default function Guide() {
   const tipIndex = useMemo(() => Math.floor(Date.now() / 86_400_000) % 7, []);
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-extrabold">{t('guide.title')}</h1>
+      <h1 className="page-title">{t('guide.title')}</h1>
       <Card>
         <h2 className="font-bold">💡 {t('guide.tipOfDay')}</h2>
         <p className="text-sm mt-1">{t(`guide.tip.${tipIndex}`)}</p>

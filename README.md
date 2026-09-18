@@ -2,7 +2,7 @@
 
 A low-friction family PWA that helps children learn chores, routines and responsible behaviour through clear
 expectations, bounded choice, temporary points, kind feedback and gradual independence — with parent control and
-proportionate AI assistance. Built from the *Kids Incentives Web-App Development Plan*; this is the **pre-V2** build.
+proportionate AI assistance. Built from the *Kids Incentives Web-App Development Plan*; this build covers **MVP → V2**.
 
 ## Run it
 ```bash
@@ -23,7 +23,8 @@ until you connect a Supabase project (see `ARCHITECTURE.md` and `.env.example`).
 - **Consistency Boost (Momentum)**: ×1.00–×1.15 defaults, weekly capped bonus, grace period + review, Supervisor config with warnings and forecast, child-chosen level skins.
 - **Repair flow**: Pause → Understand → Repair → Support → Close, cooling-off, undo, response cost off by default, appeals, correction-heavy coaching.
 - **Family agreement**, weekly three-card digest + System Balance Review, Praise Coach, Fresh Start, Independence Mode (app-free days, fading reminders, printable routine, graduation), co-op adventure, no-decay avatar, accessibility profile, audit log.
-- **Languages**: EN / UA / ES. **Themes**: Sunny / Space.
+- **V2**: separate extra-job **money ledger** (save / spend / give jars, parent-funded interest, settle payouts), **nonce video proofs** (fresh on-screen code), **exercise sets** with rep counts, optional **IP-camera connector** through a read-only local gateway (`gateway/`), **reading reflection** the child chooses (never every session), **advanced System Balance Review**, **non-expiring seasons/quests and castle**, bounded **reminders**.
+- **Languages**: EN / UA / ES. **Themes**: Sunny / Space / Forest / Ocean.
 
 ## Repository layout
 See `ARCHITECTURE.md`. Product invariants for contributors and coding agents are in `CLAUDE.md`; the condensed

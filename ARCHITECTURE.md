@@ -1,6 +1,6 @@
 # Architecture
 
-Pre-V2 build of the Kids Incentives plan: MVP + V1.1 + the software parts of V1.2.
+Kids Incentives plan, MVP through V2 (software parts).
 Stack: **Vite + React 19 + TypeScript**, Tailwind v4, Dexie (IndexedDB), i18next, react-router, zustand, vite-plugin-pwa.
 
 ```
@@ -43,6 +43,15 @@ abstain (`needs_look`, low confidence) on any outage. Never a rejection.
 before a Fresh Start excluded), level evaluation, promotion/grace rules, config validation and forecast.
 `services/momentum.ts`: weekly close writes a `bonus` ledger row = eligible × (coef−1), rounded once, capped.
 
+## V2 modules
+- `domain/money.ts` + `services/money.ts`: separate money ledger (jars, interest, payouts); Dexie table `money`, SQL `money_ledger`.
+- `domain/nonce.ts`: fresh on-screen challenge for video proofs; caps on clip length/size.
+- `domain/camera.ts` + `services/camera.ts` + `gateway/`: optional IP-camera connector, event clips only, guardrails (zones, consent, assent, window, daily limit).
+- `domain/reading.ts`: occasional reading reflection (child-chosen kind), soft plausibility signals.
+- `domain/quests.ts`: non-expiring seasons, creatures, gear and castle tiles (monotonic unlocks).
+- `domain/balance.ts`: advanced System Balance Review metrics over 8 weeks.
+- `domain/reminders.ts` + `services/reminders.ts`: bounded reminders (quiet hours, holiday mode, fading in Independence Mode).
+
 ## Not in this build (per plan)
-Capacitor shells, device attestation and store submission (V1.2 manual items); nonce video proofs, Synology/IP-camera
-connector, extra-job money ledger, reading-file ingestion, LMS integrations, extended-family sponsor funding flows (V2/V3).
+Capacitor shells, device attestation and store submission (manual items); LMS/school integrations, moderated
+template marketplace and extended-family sponsor funding flows (V3). The Supabase sync adapter still needs a live project.

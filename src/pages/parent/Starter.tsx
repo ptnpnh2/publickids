@@ -26,7 +26,7 @@ export default function Starter() {
   const done = checks.filter((c) => c.ok).length;
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-extrabold">{t('starter.title')}</h1>
+      <h1 className="page-title">{t('starter.title')}</h1>
       <p className="muted text-sm">{t('starter.explain')}</p>
       {day ? (
         <Card>

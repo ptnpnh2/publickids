@@ -1,0 +1,5 @@
+# Minimal Supabase CLI config for `npx supabase functions deploy`.
+project_id = "kids-incentives"
+
+[functions.verify-proof]
+verify_jwt = true

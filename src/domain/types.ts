@@ -8,7 +8,7 @@ export type ISODate = string; // ISO-8601 timestamp
 export type DateKey = string; // YYYY-MM-DD, family-local
 
 export type Preset = 'simple' | 'balanced' | 'independent' | 'custom';
-export type ThemeName = 'sunny' | 'space';
+export type ThemeName = 'sunny' | 'space' | 'forest' | 'ocean';
 export type CelebrationStyle = 'quiet' | 'fun' | 'big';
 
 export type Role = 'parent' | 'coparent' | 'nanny' | 'sponsor' | 'child';
@@ -40,6 +40,8 @@ export interface ChildProfile {
   vacationUntil?: ISODate;
   sickDays: DateKey[];
   graduatedFromApp?: ISODate;
+  season?: string; // chosen quest season (never expires)
+  castle: string[]; // unlocked castle tiles (never ruined)
 }
 
 export interface Member {
@@ -96,6 +98,34 @@ export interface FamilySettings {
   deleteRawProofOnResolve: boolean; // true by default
   aiEnabled: boolean;
   rawProofRetentionDays: number;
+  money: MoneySettings;
+  camera: CameraSettings;
+}
+
+export interface MoneySettings {
+  enabled: boolean;
+  currency: string; // ISO code shown to the family, e.g. EUR
+  interestPctMonthly: number; // parent-funded 'interest' on the save jar
+  jars: { save: number; spend: number; give: number }; // default split in %
+}
+
+/** Optional IP-camera connector (§2.3): off by default, event clips only, never sensitive zones. */
+export interface CameraSettings {
+  enabled: boolean;
+  gatewayUrl?: string; // local read-only gateway (see gateway/)
+  parentConsentAt?: ISODate;
+  cameras: CameraConfig[];
+  maxClipSeconds: number; // ≤ 60
+  dailyClipLimit: number;
+  deleteClipsOnResolve: boolean;
+}
+
+export interface CameraConfig {
+  id: string;
+  name: string;
+  zone: string; // e.g. 'living room mat' — bedrooms/bathrooms are refused
+  window: { start: string; end: string };
+  childAssent: Record<ID, ISODate>;
 }
 
 export interface Family {
@@ -150,6 +180,11 @@ export interface Task {
   assignedChildIds: ID[];
   choiceGroup?: string; // "choose one of" group key
   coop?: boolean; // counts toward the family co-op adventure
+  moneyAmount?: number; // extra_job only: amount in family currency units
+  nonce?: boolean; // video proof must show a fresh on-screen challenge
+  exercise?: { kind: 'pushups' | 'squats' | 'plank' | 'jumps' | 'other'; reps: number };
+  reading?: { bookTitle: string; reflectEvery: number; quiz?: { q: string; a: string }[] };
+  cameraId?: string; // optional camera proof for this task
   active: boolean;
   proposedBy?: ID; // child proposal awaiting parent approval
   createdBy: ID;
@@ -214,7 +249,14 @@ export interface Submission {
   ledgerEntryId?: ID;
   reminderCount: number;
   independentStart: boolean; // completed without a reminder
+  nonce?: { code: string; issuedAt: ISODate; expiresAt: ISODate };
+  repsClaimed?: number;
+  repsCounted?: number;
+  reflection?: { kind: ReflectionKind; text?: string; mediaId?: ID };
+  cameraClip?: { cameraId: string; requestedAt: ISODate; seconds: number };
 }
+
+export type ReflectionKind = 'retell' | 'drawing' | 'passage' | 'note' | 'quiz' | 'conversation' | 'selflog';
 
 export interface Media {
   id: ID;
@@ -395,4 +437,43 @@ export interface Session {
   isSupervisor: boolean;
   isSuperUser: boolean;
   elevatedUntil?: ISODate; // super-user elevation for role/recovery changes
+}
+
+export type MoneyKind = 'earn' | 'payout' | 'interest' | 'move' | 'spend' | 'give';
+export type Jar = 'save' | 'spend' | 'give';
+
+export interface MoneyEntry {
+  id: ID;
+  familyId: ID;
+  childId: ID;
+  kind: MoneyKind;
+  amount: number; // signed, in currency units
+  jar: Jar; // jar affected (for 'move', the destination; a paired negative row hits the source)
+  reason: string;
+  refType?: 'submission' | 'task' | 'money';
+  refId?: ID;
+  settled: boolean; // payout marked when settled in cash or transfer
+  createdAt: ISODate;
+}
+
+export interface Reminder {
+  id: ID;
+  familyId: ID;
+  childId: ID;
+  taskId: ID;
+  dateKey: DateKey;
+  kind: 'window_open' | 'closing_soon' | 'parent';
+  createdAt: ISODate;
+}
+
+export interface CameraEvent {
+  id: ID;
+  familyId: ID;
+  childId: ID;
+  taskId: ID;
+  cameraId: ID;
+  status: 'requested' | 'received' | 'failed';
+  seconds: number;
+  createdAt: ISODate;
+  note?: string;
 }

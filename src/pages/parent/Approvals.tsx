@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useChildren, useFamily, useMe, useMedia, useRedemptions, useRewards, useSubmissions, useTasks, useGoals, useIncidents } from '@/hooks/useData';
 import { Button, Card, Empty, ErrorText, Modal, Toast, useToast } from '@/components/ui';
@@ -28,6 +28,7 @@ export default function Approvals() {
   const [error, setError] = useState<string | null>(null);
   const [praiseFor, setPraiseFor] = useState<Submission | null>(null);
   const [praiseText, setPraiseText] = useState('');
+  const repsRef = useRef<Record<string, number>>({});
 
   const kidIds = new Set(kids.map((k) => k.id));
   const pending = useMemo(() => subs.filter((s) => kidIds.has(s.childId) && (s.status === 'submitted' || s.status === 'needs_look')).sort((a, b) => a.submittedAt.localeCompare(b.submittedAt)), [subs, kids]);
@@ -46,6 +47,7 @@ export default function Approvals() {
   async function approve(ids: string[], feedback?: string) {
     if (!me) return;
     setError(null);
+    for (const id of ids) if (repsRef.current[id] !== undefined) await db.submissions.update(id, { repsCounted: repsRef.current[id] });
     const r = await approveMany(me.id, ids, feedback);
     setSelected([]);
     if (r.failed) setError('approve.someNotAllowed');
@@ -55,7 +57,7 @@ export default function Approvals() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-extrabold">{t('nav.approve')}</h1>
+        <h1 className="page-title">{t('nav.approve')}</h1>
         {pending.length > 0 && (
           <div className="flex gap-2">
             <Button variant="secondary" onClick={() => setSelected(selected.length === pending.length ? [] : pending.map((s) => s.id))}>
@@ -90,6 +92,20 @@ export default function Approvals() {
                 {s.ai && (
                   <p className="text-xs mt-1 muted">
                     🤖 {t(`ai.rec.${s.ai.recommendation}`)} ({Math.round(s.ai.confidence * 100)}%) · {t(s.ai.explanation, { defaultValue: s.ai.explanation })}
+                  </p>
+                )}
+                {s.nonce && <p className="text-xs mt-1"><span className="chip chip-accent">🔑 {s.nonce.code}</span> <span className="muted">{t('approve.nonceCheck')}</span></p>}
+                {s.cameraClip && <p className="text-xs mt-1 muted">📹 {t('approve.cameraClip', { s: s.cameraClip.seconds })}</p>}
+                {task.exercise && (
+                  <p className="text-xs mt-1">
+                    💪 {t('approve.repsClaimed', { n: s.repsClaimed ?? task.exercise.reps, target: task.exercise.reps })}
+                    <input className="input inline-block w-20 ml-2 py-0" type="number" min={0} defaultValue={s.repsClaimed ?? task.exercise.reps} onChange={(e) => (repsRef.current[s.id] = Number(e.target.value))} aria-label={t('approve.repsCounted')} />
+                  </p>
+                )}
+                {s.reflection && (
+                  <p className="text-sm mt-1">
+                    📖 {t(`reading.kind.${s.reflection.kind}`)}
+                    {s.reflection.text ? `: “${s.reflection.text}”` : ''}
                   </p>
                 )}
                 <ProofPreview id={s.proofBlobId} mime={s.proofMime} />

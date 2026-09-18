@@ -32,6 +32,11 @@ When a feature request conflicts with these, the invariant wins and the request 
     Sponsor funds approved rewards and sends kudos only. Role and recovery changes need the super-user.
 12. **Children see explanations**, not verdicts: every settings/stage/momentum change carries a
     `childExplanation` in the audit log.
+13. **Money is a separate ledger** for extra jobs only (`money` table, jars), never for grades, kindness or
+    baseline chores, and never mixed with points.
+14. **Camera proof is off by default**, event-clip only, never sensitive zones (`zoneAllowed`), needs parent
+    consent and child assent, proves *what* happened in view never *who*, and a phone/self-check alternative always exists.
+15. **Quests and seasons never expire or decay**; unlocks are monotonic.
 
 ## Engineering conventions
 - Domain rules live in `src/domain/*` as pure functions with tests; services in `src/services/*` touch the DB.
