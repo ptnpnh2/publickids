@@ -34,7 +34,7 @@ export default function GoalPage() {
     <div className="space-y-4">
       {celebrate && <Celebration style={me?.child?.celebration ?? 'fun'} soundOff={me?.child?.soundOff} text={celebrate} onDone={() => setCelebrate(null)} />}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-extrabold">{t('nav.goal')}</h1>
+        <h1 className="page-title">{t('nav.goal')}</h1>
         <div className="chip text-base">⭐ {balance}</div>
       </div>
       {active.length === 0 && <p className="muted text-center py-6">{t('goal.none')}</p>}

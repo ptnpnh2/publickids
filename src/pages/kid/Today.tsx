@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useBalance, useFamily, useMe, useMomentum, useStages, useSubmissions, useTasks, useKudos } from '@/hooks/useData';
+import { useBalance, useFamily, useGoals, useMe, useMomentum, useStages, useSubmissions, useTasks, useKudos } from '@/hooks/useData';
 import { dateKey, isScheduledOn, windowState } from '@/domain/time';
-import { Empty } from '@/components/ui';
+import { Empty, Ring, Section } from '@/components/ui';
 import { levelsFor, MOMENTUM_SKINS, levelIndex } from '@/domain/momentum';
 import type { Submission, Task } from '@/domain/types';
 
@@ -18,6 +18,8 @@ export default function Today() {
   const balance = useBalance(me?.id);
   const momentum = useMomentum(me?.id);
   const kudos = useKudos(me?.id);
+  const goals = useGoals(me?.id);
+  const goal = goals.find((g) => g.status === 'active' && g.primary) ?? goals.find((g) => g.status === 'active');
   const today = dateKey();
   const dow = new Date().getDay();
   const appFree = me?.child?.appFreeDays.includes(dow);
@@ -38,11 +40,9 @@ export default function Today() {
         if (task.choiceGroup) seenChoice.add(task.choiceGroup);
         continue;
       }
-      const ws = windowState(task.window);
-      if (ws === 'before') later.push(task);
+      if (windowState(task.window) === 'before') later.push(task);
       else now.push(task);
     }
-    // Choice-based assignment: once one task of a group is done, the siblings drop out of Now.
     const filteredNow = now.filter((x) => !x.choiceGroup || !seenChoice.has(x.choiceGroup));
     const order = (a: Task, b: Task) => a.window.end.localeCompare(b.window.end);
     return { now: filteredNow.sort(order).slice(0, 5), later: later.sort(order), done, help };
@@ -53,22 +53,43 @@ export default function Today() {
   const skin = MOMENTUM_SKINS[me?.child?.momentumSkin ?? 'neutral'];
   const levelName = me?.child?.momentumSkin && me.child.momentumSkin !== 'neutral' ? skin[li] : levels[li]?.name;
   const stageOf = (taskId: string) => stages.find((s) => s.taskId === taskId)?.stage ?? 'learning';
+  const doneCount = done.length;
+  const total = doneCount + now.length + later.length + help.length;
 
-  if (me?.child?.graduatedFromApp) {
-    return <Empty emoji="🎓" text={t('today.graduated')} />;
-  }
+  if (me?.child?.graduatedFromApp) return <Empty emoji="🎓" text={t('today.graduated')} />;
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-extrabold">{t('today.title', { name: me?.name })}</h1>
-        <div className="chip text-base">⭐ {balance}</div>
+    <div className="space-y-5">
+      <div className="hero">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <h1 className="display text-2xl font-extrabold leading-tight">{t('today.title', { name: me?.name })}</h1>
+            <p className="muted text-sm mt-0.5">{total ? t('today.progressLine', { done: doneCount, total }) : t('today.freeDay')}</p>
+            {levelName && (
+              <Link to="/kid/me" className="chip mt-2" style={{ background: 'color-mix(in srgb, var(--primary-contrast) 18%, transparent)', color: 'var(--primary-contrast)' }}>
+                ⚡ {t('today.momentum', { level: levelName })}
+              </Link>
+            )}
+          </div>
+          <div className="text-right">
+            <div className="text-xs font-bold uppercase tracking-wide muted">{t('common.pts')}</div>
+            <div className="display text-3xl font-extrabold">⭐ {balance}</div>
+          </div>
+        </div>
+        {goal && (
+          <Link to="/kid/goal" className="mt-3 flex items-center gap-3 rounded-2xl p-2" style={{ background: 'color-mix(in srgb, var(--primary-contrast) 14%, transparent)' }}>
+            <Ring value={goal.savedPoints} max={goal.targetPoints} size={52} stroke="currentColor" label={<span>{goal.emoji}</span>} />
+            <div className="flex-1 min-w-0">
+              <div className="font-extrabold truncate">{goal.title}</div>
+              <div className="muted text-xs">
+                {goal.savedPoints} / {goal.targetPoints} ⭐
+              </div>
+            </div>
+            <span aria-hidden>›</span>
+          </Link>
+        )}
       </div>
-      {levelName && (
-        <p className="muted text-sm">
-          {t('today.momentum', { level: levelName })} · <Link to="/kid/me" className="underline">{t('today.whatIsThis')}</Link>
-        </p>
-      )}
+
       {appFree && <div className="card">{t('today.appFree')}</div>}
       {kudos[0] && <div className="card">💌 {kudos[0].text}</div>}
 
@@ -88,11 +109,13 @@ export default function Today() {
       {help.length > 0 && (
         <Section title={t('today.helpSent')} emoji="🙋">
           {help.map(({ task, sub }) => (
-            <div key={sub.id} className="card flex items-center gap-3">
-              <span className="text-2xl">{task.emoji}</span>
+            <div key={sub.id} className="card task-card">
+              <span className="task-emoji">{task.emoji}</span>
               <span className="flex-1">
-                <span className="font-semibold block">{task.title}</span>
-                <span className="muted text-xs">{t(`help.${sub.help}`)} · {t('today.waitingParent')}</span>
+                <span className="font-extrabold block">{task.title}</span>
+                <span className="muted text-xs">
+                  {t(`help.${sub.help}`)} · {t('today.waitingParent')}
+                </span>
               </span>
             </div>
           ))}
@@ -101,14 +124,19 @@ export default function Today() {
       {done.length > 0 && (
         <Section title={t('today.done')} emoji="✅">
           {done.map(({ task, sub }) => (
-            <Link key={sub.id} to={`/kid/task/${task.id}`} className="card flex items-center gap-3">
-              <span className="text-2xl">{task.emoji}</span>
-              <span className="flex-1">
-                <span className="font-semibold block">{task.title}</span>
-                <span className="muted text-xs">{t(`status.${sub.status}`)}{sub.feedback ? ` · 💬 ${sub.feedback}` : ''}</span>
+            <Link key={sub.id} to={`/kid/task/${task.id}`} className="card task-card">
+              <span className="task-emoji" style={{ background: sub.status === 'approved' ? 'var(--ok-soft)' : 'var(--primary-soft)' }}>
+                {task.emoji}
               </span>
-              {sub.status === 'approved' && task.currency === 'points' && sub.ledgerEntryId && <span className="chip">+{task.basePoints}</span>}
-              {sub.status === 'approved' && !sub.ledgerEntryId && <span className="chip">👏</span>}
+              <span className="flex-1 min-w-0">
+                <span className="font-extrabold block truncate">{task.title}</span>
+                <span className="muted text-xs">
+                  {t(`status.${sub.status}`)}
+                  {sub.feedback ? ` · 💬 ${sub.feedback}` : ''}
+                </span>
+              </span>
+              {sub.status === 'approved' && task.currency === 'points' && sub.ledgerEntryId && <span className="chip chip-ok">+{task.basePoints}</span>}
+              {sub.status === 'approved' && !sub.ledgerEntryId && <span className="chip chip-ok">👏</span>}
             </Link>
           ))}
         </Section>
@@ -117,33 +145,23 @@ export default function Today() {
   );
 }
 
-function Section({ title, emoji, children }: { title: string; emoji: string; children: React.ReactNode }) {
-  return (
-    <section>
-      <h2 className="font-bold muted text-sm uppercase tracking-wide mb-2">
-        {emoji} {title}
-      </h2>
-      <div className="grid gap-2">{children}</div>
-    </section>
-  );
-}
-
 function TaskCard({ task, stage, state, retry }: { task: Task; stage: string; state: 'before' | 'open' | 'closed'; retry?: boolean }) {
   const { t } = useTranslation();
   return (
-    <Link to={`/kid/task/${task.id}`} className="card flex items-center gap-3 pop" style={{ minHeight: 72 }}>
-      <span className="text-3xl" aria-hidden>
+    <Link to={`/kid/task/${task.id}`} className="card task-card pop" style={{ opacity: state === 'before' ? 0.75 : 1 }}>
+      <span className="task-emoji" aria-hidden>
         {task.emoji}
       </span>
       <span className="flex-1 min-w-0">
-        <span className="font-bold block truncate">{task.title}</span>
+        <span className="font-extrabold block truncate">{task.title}</span>
         <span className="muted text-xs">
           {task.window.start}–{task.window.end} · {task.estimatedMinutes} {t('common.min')}
+          {task.exercise ? ` · ${task.exercise.reps} × ${t(`exercise.${task.exercise.kind}`)}` : ''}
           {retry ? ` · ${t('status.retry')}` : ''}
           {state === 'closed' ? ` · ${t('today.windowClosed')}` : ''}
         </span>
       </span>
-      {task.currency === 'points' && stage !== 'graduated' ? <span className="chip">⭐ {task.basePoints}</span> : <span className="chip">👏</span>}
+      {task.category === 'extra_job' && task.moneyAmount ? <span className="chip chip-accent">💶 {task.moneyAmount}</span> : task.currency === 'points' && stage !== 'graduated' ? <span className="chip">⭐ {task.basePoints}</span> : <span className="chip chip-ok">👏</span>}
     </Link>
   );
 }

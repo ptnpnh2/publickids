@@ -6,7 +6,8 @@
   "locale": {
     "en": "English",
     "uk": "Українська",
-    "es": "Español"
+    "es": "Español",
+    "ru": "Русский"
   },
   "nav": {
     "today": "Hoy",
@@ -107,7 +108,9 @@
   },
   "theme": {
     "sunny": "Soleado",
-    "space": "Espacio"
+    "space": "Espacio",
+    "forest": "Bosque",
+    "ocean": "Océano"
   },
   "celebration": {
     "quiet": "Tranquilo",
@@ -141,7 +144,9 @@
     "allDone": "Todo hecho por hoy. ¡A jugar!",
     "waitingParent": "un padre lo verá pronto",
     "windowClosed": "ventana cerrada — aún puedes enviarlo",
-    "graduated": "¡Te graduaste de la app! Tus rutinas ya son tuyas. 🎓"
+    "graduated": "¡Te graduaste de la app! Tus rutinas ya son tuyas. 🎓",
+    "progressLine": "{{done}} de {{total}} hechas hoy",
+    "freeDay": "Nada programado hoy."
   },
   "status": {
     "submitted": "Enviado — esperando revisión",
@@ -215,7 +220,24 @@
     "proposedBy": "Propuesta por {{name}}",
     "updatedExplain": "Un padre actualizó esta tarea.",
     "simplified": "Hicimos esta tarea más simple.",
-    "rescheduled": "Movimos la ventana de tiempo."
+    "rescheduled": "Movimos la ventana de tiempo.",
+    "moneyAmount": "Dinero por este trabajo ({{cur}})",
+    "moneyHint": "Va a los botes del niño al aprobarse.",
+    "moneyDisabled": "Activa antes el libro de dinero en Más → Dinero.",
+    "exercise": "Serie de ejercicio (opcional)",
+    "exerciseHint": "Acciones objetivas y contables. Combínalo con prueba en vídeo y un código opcional.",
+    "reps": "Repeticiones",
+    "nonce": "Exigir un código fresco en pantalla dentro del vídeo",
+    "nonceHint": "Demuestra que el vídeo se grabó ahora. Nunca demuestra quién — tú decides.",
+    "camera": "Cámara para la prueba (opcional)",
+    "cameraHint": "El niño puede pedir un clip corto de una cámara fija en zona segura en lugar de usar el móvil.",
+    "reading": "Lectura (opcional)",
+    "readingHint": "Reflexión ocasional que elige el niño — nunca tras cada sesión.",
+    "bookTitle": "Título del libro",
+    "reflectEvery": "Reflexionar cada N sesiones (0 = nunca)",
+    "quizQ": "Pregunta",
+    "quizA": "Respuesta esperada",
+    "addQuiz": "Añadir pregunta"
   },
   "category": {
     "selfcare": "Cuidado personal",
@@ -266,7 +288,16 @@
     "sent": "¡Enviado! Un padre lo mirará.",
     "sentSelf": "¡Bien! Enviado.",
     "needsLookExplain": "No pasa nada — un padre solo quiere echar un vistazo.",
-    "micDenied": "No se permitió el acceso al micrófono."
+    "micDenied": "No se permitió el acceso al micrófono.",
+    "nonceStart": "Mostrar el código de hoy",
+    "nonceSay": "Dilo o muéstralo en tu vídeo",
+    "nonceTtl": "Válido 10 minutos",
+    "nonceWas": "Código mostrado: {{code}}",
+    "nonceExpired": "El código caducó — muestra uno nuevo y graba otra vez.",
+    "videoCaps": "Solo clips cortos (máx. {{s}} s). El vídeo se borra tras la revisión.",
+    "videoTooLarge": "El vídeo es demasiado largo o pesado.",
+    "repsDone": "¿Cuántas {{kind}} hiciste?",
+    "repsCounted": "Contadas: {{n}}"
   },
   "verification": {
     "manual": "Manual",
@@ -494,7 +525,11 @@
     "someNotAllowed": "Algunos elementos necesitan que los apruebe un padre.",
     "auditSample": "Muestra de auditoría (auto-aprobado)",
     "auditOk": "Es correcto",
-    "auditWrong": "La IA se equivocó"
+    "auditWrong": "La IA se equivocó",
+    "nonceCheck": "comprueba que el código aparece en el vídeo",
+    "cameraClip": "clip de cámara, {{s}} s",
+    "repsClaimed": "declaradas {{n}} de {{target}}",
+    "repsCounted": "Repeticiones contadas"
   },
   "ai": {
     "rec": {
@@ -758,7 +793,39 @@
     "independentDown": "Los inicios independientes bajaron respecto a la semana pasada.",
     "tooManyTasks": "{{n}} tareas con puntos activas — más de lo recomendado.",
     "ok": "Nada inusual.",
-    "disclaimer": "Solo patrones observables — esto nunca pretende detectar pereza, honestidad, personalidad, ánimo ni motivación."
+    "disclaimer": "Solo patrones observables — esto nunca pretende detectar pereza, honestidad, personalidad, ánimo ni motivación.",
+    "explain8w": "Últimas 8 semanas. Patrones observables, no juicios.",
+    "status": {
+      "ok": "bien",
+      "watch": "vigilar",
+      "act": "actuar"
+    },
+    "metric": {
+      "proofBurden": "Carga de pruebas",
+      "doubtRate": "Necesitaron segundo vistazo",
+      "appealRate": "Apelaciones",
+      "bonusRatio": "Bono frente a puntos base",
+      "rewardLight": "Completadas sin premio",
+      "independentStarts": "Inicios independientes",
+      "negotiation": "Negociación de puntos",
+      "overrides": "Cambios del Supervisor",
+      "autoApproved": "Auto-aprobadas",
+      "pointTasks": "Tareas con puntos activas",
+      "topLevel": "Niños en el nivel máximo de impulso"
+    },
+    "hint": {
+      "proofBurden": "Parte de aprobaciones que necesitaron foto/audio/vídeo.",
+      "doubtRate": "Parte de envíos marcados para revisar o repetir.",
+      "appealRate": "Parte de envíos apelados.",
+      "bonusRatio": "Bonos semanales como % de puntos base (tope 15%).",
+      "rewardLight": "Aprobadas sin puntos — señal de hábitos que se sostienen solos.",
+      "independentStarts": "Completadas sin recordatorio.",
+      "negotiation": "Propuestas de tareas, premios y metas de los niños.",
+      "overrides": "Cambios en la configuración de impulso.",
+      "autoApproved": "{{errors}} errores de IA registrados por apelaciones o auditorías.",
+      "pointTasks": "Recomendado: máximo 3 por niño.",
+      "topLevel": "Privado — no es un ranking."
+    }
   },
   "audit": {
     "title": "Historial de cambios",
@@ -952,5 +1019,123 @@
     "parkTrip": "Excursión al parque",
     "lego": "Set de Lego",
     "book": "Libro nuevo"
+  },
+  "exercise": {
+    "pushups": "flexiones",
+    "squats": "sentadillas",
+    "plank": "segundos de plancha",
+    "jumps": "saltos",
+    "other": "repeticiones"
+  },
+  "camera": {
+    "title": "Conector de cámara (opcional)",
+    "explain": "Desactivado por defecto. Una cámara fija en una zona segura puede capturar un clip breve de acciones objetivas como flexiones, para que los padres revisen menos. Demuestra que la acción ocurrió en cuadro — nunca quién la hizo.",
+    "enable": "Activar prueba por cámara (consentimiento parental)",
+    "gateway": "URL de la pasarela local",
+    "gatewayHint": "Una pasarela de solo lectura en tu red doméstica (ver gateway/README.md). Nunca en directo.",
+    "maxClip": "Segundos máx. por clip (≤60)",
+    "dailyLimit": "Clips por día",
+    "deleteClips": "Borrar los clips justo tras la revisión",
+    "name": "Nombre de la cámara",
+    "zone": "Zona segura (p. ej. alfombra del salón)",
+    "add": "Añadir cámara",
+    "assents": "{{n}} niños de acuerdo",
+    "start": "Iniciar prueba por cámara ({{name}})",
+    "recording": "Grabando un clip corto…",
+    "assent": "Acepto usar la cámara {{name}} en {{zone}}",
+    "childNote": "Un indicador rojo se muestra mientras se graba. Siempre puedes usar tu móvil.",
+    "rule1": "Solo clips por evento — sin grabación continua, historial ni vista en directo.",
+    "rule2": "Nunca dormitorios, baños, vestidores ni comidas.",
+    "rule3": "Sin reconocimiento facial ni afirmaciones sobre quién lo hizo; los clips dudosos van a un padre.",
+    "rule4": "Cada niño da su asentimiento; siempre hay una prueba alternativa.",
+    "reason": {
+      "disabled": "La prueba por cámara está desactivada.",
+      "no_consent": "Un padre aún no ha dado su consentimiento.",
+      "no_assent": "Aún no has aceptado esta cámara.",
+      "zone": "Esa zona no está permitida para prueba por cámara.",
+      "window": "La cámara no está disponible a esta hora.",
+      "limit": "Límite diario de clips alcanzado — usa tu móvil.",
+      "clip_length": "La duración del clip está fuera de límites.",
+      "not_eligible": "Esta tarea no puede usar prueba por cámara.",
+      "no_camera": "No hay cámara configurada para esta tarea.",
+      "gateway": "No se pudo contactar con la pasarela — graba con tu móvil."
+    }
+  },
+  "reading": {
+    "reflectTitle": "Cuéntanos sobre «{{book}}»",
+    "reflectHint": "Elige una — es ocasional, no un examen.",
+    "kind": {
+      "retell": "Contarlo en voz alta a un padre",
+      "drawing": "Dibujar una escena",
+      "passage": "Pasaje favorito",
+      "note": "Nota de una frase",
+      "quiz": "Quiz rápido",
+      "conversation": "Charlar con un padre",
+      "selflog": "Solo registrarlo"
+    },
+    "placeholder": {
+      "passage": "Copia una frase que te gustó",
+      "note": "Una frase sobre lo que pasó",
+      "quiz": "Tus respuestas"
+    }
+  },
+  "quest": {
+    "title": "Temporada",
+    "neverExpires": "Las temporadas no caducan — cambia cuando quieras, no se pierde nada.",
+    "next": "{{n}} tareas aprobadas más para desbloquear {{emoji}}",
+    "castle": "Mi castillo",
+    "castleHint": "Una pieza nueva cada 4 tareas aprobadas. Nada se arruina nunca.",
+    "pickSeason": "Elige una temporada"
+  },
+  "season": {
+    "meadow": "Pradera",
+    "space": "Espacio",
+    "ocean": "Océano"
+  },
+  "money": {
+    "title": "Dinero",
+    "explain": "Separado de los puntos y solo para trabajos extra más allá de las tareas básicas (nunca por notas ni amabilidad). Los botes ahorrar / gastar / dar enseñan a presupuestar.",
+    "enable": "Activar el libro de dinero",
+    "currency": "Moneda",
+    "interest": "Interés del bote ahorrar (% / mes)",
+    "interestHint": "Lo pagas tú, se añade cada mes.",
+    "jarsSplit": "Reparto por defecto (%)",
+    "jarsHint": "Debe sumar 100.",
+    "jarsInvalid": "Los porcentajes deben sumar 100.",
+    "jar": {
+      "save": "Ahorrar",
+      "spend": "Gastar",
+      "give": "Dar"
+    },
+    "earned": "Ganado",
+    "unsettled": "Por entregar",
+    "settle": "Entregado",
+    "jarLabel": "Desde el bote",
+    "amount": "Importe",
+    "payout": "Entregar",
+    "notEnough": "No hay suficiente en ese bote.",
+    "myMoney": "Mi dinero",
+    "childHint": "De trabajos extra. Los puntos van aparte.",
+    "interestNote": "El bote ahorrar crece {{pct}}% al mes — lo pagan tus padres.",
+    "open": "Abrir el libro de dinero",
+    "neverGrades": "Nunca dinero por notas, amabilidad, comer o tareas básicas.",
+    "settingsChanged": "Se cambiaron los ajustes de dinero.",
+    "spendOut": "Entrega del bote gastar",
+    "giveOut": "Donación del bote dar",
+    "saveOut": "Entrega del bote ahorrar",
+    "moveTo": {
+      "save": "Movido a Ahorrar",
+      "spend": "Movido a Gastar",
+      "give": "Movido a Dar"
+    },
+    "moveFrom": {
+      "save": "Movido desde Ahorrar",
+      "spend": "Movido desde Gastar",
+      "give": "Movido desde Dar"
+    }
+  },
+  "reminder": {
+    "windowOpen": "Es la hora — abierto hasta las {{end}}.",
+    "closingSoon": "Cierra pronto — hasta las {{end}}."
   }
 }

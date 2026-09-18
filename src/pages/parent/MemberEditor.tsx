@@ -78,7 +78,7 @@ export default function MemberEditor() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-extrabold">{existing ? t('common.edit') : t('family.add')}</h1>
+      <h1 className="page-title">{existing ? t('common.edit') : t('family.add')}</h1>
       {!existing && <Segmented value={kind} onChange={setKind} options={[{ value: 'child', label: t('role.child') }, { value: 'adult', label: t('family.adult') }]} />}
       <Card>
         {kind === 'child' ? (

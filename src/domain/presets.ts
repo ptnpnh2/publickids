@@ -1,4 +1,6 @@
 import type { FamilySettings, Preset } from './types';
+import { DEFAULT_MONEY } from './money';
+import { DEFAULT_CAMERA } from './camera';
 
 export const BASE_SETTINGS: FamilySettings = {
   preset: 'balanced',
@@ -15,6 +17,8 @@ export const BASE_SETTINGS: FamilySettings = {
   deleteRawProofOnResolve: true,
   aiEnabled: true,
   rawProofRetentionDays: 7,
+  money: DEFAULT_MONEY,
+  camera: DEFAULT_CAMERA,
 };
 
 export function applyPreset(preset: Preset, current: FamilySettings): FamilySettings {

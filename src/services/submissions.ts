@@ -9,6 +9,10 @@ import { audit } from './audit';
 import { ensureStage } from './tasks';
 import { verifyProof } from './verification';
 import { COSMETICS } from './templates';
+import { recordEarning } from './money';
+import { castleTiles } from '@/domain/quests';
+import { reminderCountToday } from './reminders';
+import type { ReflectionKind } from '@/domain/types';
 
 export interface SubmitInput {
   task: Task;
@@ -18,6 +22,10 @@ export interface SubmitInput {
   note?: string;
   reminderCount?: number;
   independentStart?: boolean;
+  nonce?: { code: string; issuedAt: string; expiresAt: string };
+  repsClaimed?: number;
+  reflection?: { kind: ReflectionKind; text?: string; mediaId?: string };
+  cameraClip?: { cameraId: string; requestedAt: string; seconds: number };
 }
 
 /** Child submits the least burdensome acceptable proof. AI (if enabled) only
@@ -47,9 +55,14 @@ export async function submitTask(input: SubmitInput): Promise<Submission> {
     proofMime: input.media?.mime,
     note: input.note,
     submittedAt: nowISO(),
-    reminderCount: input.reminderCount ?? 0,
-    independentStart: input.independentStart ?? (input.reminderCount ?? 0) === 0,
+    reminderCount: input.reminderCount ?? (await reminderCountToday(child.id, task.id)),
+    independentStart: false,
+    nonce: input.nonce,
+    repsClaimed: input.repsClaimed,
+    reflection: input.reflection,
+    cameraClip: input.cameraClip,
   };
+  sub.independentStart = input.independentStart ?? sub.reminderCount === 0;
 
   // Optional AI pre-screen (mode 2/3). Mode 1 keeps AI silent.
   if (family.settings.aiEnabled && task.verificationMode !== 'manual' && input.proofMethod !== 'none' && input.proofMethod !== 'self_check' && input.proofMethod !== 'parent_observed') {
@@ -91,6 +104,7 @@ export interface ApproveOptions {
   auto?: boolean;
   auditSample?: boolean;
   feedback?: string;
+  repsCounted?: number;
 }
 
 async function deleteRawProof(sub: Submission, familyId: string): Promise<void> {
@@ -132,10 +146,11 @@ export async function approveSubmission(actorId: string, submissionId: string, o
     });
     ledgerEntryId = e.id;
   }
-  await db.submissions.update(sub.id, { status: 'approved', resolvedAt: nowISO(), resolvedBy: actorId, autoApproved: !!opts.auto, auditSample: !!opts.auditSample, feedback: opts.feedback, ledgerEntryId });
+  await db.submissions.update(sub.id, { status: 'approved', resolvedAt: nowISO(), resolvedBy: actorId, autoApproved: !!opts.auto, auditSample: !!opts.auditSample, feedback: opts.feedback, ledgerEntryId, ...(opts.repsCounted !== undefined ? { repsCounted: opts.repsCounted } : {}) });
   await deleteRawProof(sub, sub.familyId);
   await unlockCosmetics(sub.childId);
   if (task.coop) await contributeCoop(sub.familyId, sub.childId);
+  if (task.category === 'extra_job' && task.moneyAmount) await recordEarning(sub.familyId, sub.childId, task.moneyAmount, task.title, sub.id);
   await audit({ familyId: sub.familyId, actorId, action: opts.auto ? 'submission.autoApprove' : 'submission.approve', targetType: 'submission', targetId: sub.id, after: { points: earnsPoints ? task.basePoints : 0 } });
 }
 
@@ -195,7 +210,10 @@ async function unlockCosmetics(childId: string): Promise<void> {
   const count = await db.submissions.where('childId').equals(childId).filter((s) => s.status === 'approved').count();
   const unlocked = COSMETICS.filter((c) => count >= c.unlockAt).map((c) => c.id);
   const merged = Array.from(new Set([...m.child.avatar.unlocked, ...unlocked]));
-  if (merged.length !== m.child.avatar.unlocked.length) await db.members.update(childId, { child: { ...m.child, avatar: { ...m.child.avatar, unlocked: merged } } });
+  const castle = castleTiles(count);
+  if (merged.length !== m.child.avatar.unlocked.length || castle.length !== (m.child.castle ?? []).length) {
+    await db.members.update(childId, { child: { ...m.child, castle, avatar: { ...m.child.avatar, unlocked: merged } } });
+  }
 }
 
 async function contributeCoop(familyId: string, childId: string): Promise<void> {

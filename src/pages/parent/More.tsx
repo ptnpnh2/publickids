@@ -11,6 +11,8 @@ export default function More() {
   const day = family ? starterDay(family) : null;
   const items = [
     { to: '/parent/digest', emoji: '📬', label: t('digest.title') },
+    { to: '/parent/balance', emoji: '⚖️', label: t('balance.title') },
+    { to: '/parent/money', emoji: '💶', label: t('money.title') },
     { to: '/parent/repair', emoji: '🔧', label: t('repair.title') },
     { to: '/parent/coop', emoji: '🤝', label: t('coop.title') },
     { to: '/parent/agreement', emoji: '🤝', label: t('agreement.title') },
@@ -22,7 +24,7 @@ export default function More() {
   ];
   return (
     <div className="space-y-2">
-      <h1 className="text-2xl font-extrabold mb-2">{t('nav.more')}</h1>
+      <h1 className="page-title mb-2">{t('nav.more')}</h1>
       {items.map((i) => (
         <Link key={i.to} to={i.to}>
           <Card className="flex items-center gap-3 mb-2">

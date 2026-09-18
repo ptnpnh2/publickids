@@ -28,7 +28,7 @@ export default function Digest() {
   );
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-extrabold">{t('digest.title')}</h1>
+      <h1 className="page-title">{t('digest.title')}</h1>
       <p className="muted text-sm">{t('digest.weekOf', { date: parseDateKey(ws).toLocaleDateString() })}</p>
       {cards.map(({ kid, digest }) => (
         <div key={kid.id} className="space-y-2">

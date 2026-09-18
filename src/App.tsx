@@ -6,6 +6,7 @@ import { Shell } from '@/components/Layout';
 import { db } from '@/db/schema';
 import { closeWeeks, refreshMomentum } from '@/services/momentum';
 import { sweepMedia } from '@/services/submissions';
+import { applyMonthlyInterest } from '@/services/money';
 import { configureVerifier, remoteVerifier } from '@/services/verification';
 import Welcome from '@/pages/auth/Welcome';
 import CreateFamily from '@/pages/auth/CreateFamily';
@@ -34,6 +35,8 @@ import Coop from '@/pages/parent/Coop';
 import Starter from '@/pages/parent/Starter';
 import Guide from '@/pages/parent/Guide';
 import ChildProgress from '@/pages/parent/ChildProgress';
+import Money from '@/pages/parent/Money';
+import Balance from '@/pages/parent/Balance';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
@@ -48,6 +51,7 @@ function useHousekeeping() {
       for (const c of children) {
         await refreshMomentum(c);
         await closeWeeks(c);
+        await applyMonthlyInterest(session.familyId, c.id);
       }
       await sweepMedia(session.familyId);
     })();
@@ -115,6 +119,8 @@ export default function App() {
         <Route path="coop" element={<Coop />} />
         <Route path="starter" element={<Starter />} />
         <Route path="guide" element={<Guide />} />
+        <Route path="money" element={<Money />} />
+        <Route path="balance" element={<Balance />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

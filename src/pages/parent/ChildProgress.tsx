@@ -37,7 +37,7 @@ export default function ChildProgress() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-extrabold">{kid.child.avatar.emoji} {kid.name}</h1>
+      <h1 className="page-title">{kid.child.avatar.emoji} {kid.name}</h1>
       <Card>
         <h2 className="font-bold">{t('progress.routine')}</h2>
         <ul className="mt-2">

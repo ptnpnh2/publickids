@@ -67,7 +67,7 @@ export default function TaskEditor() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-extrabold">{existing ? t('task.edit') : t('task.new')}</h1>
+      <h1 className="page-title">{existing ? t('task.edit') : t('task.new')}</h1>
       <Card>
         <div className="flex gap-2">
           <input className="input w-16 text-center" value={form.emoji} onChange={(e) => patch({ emoji: e.target.value })} aria-label="emoji" />
@@ -176,6 +176,53 @@ export default function TaskEditor() {
         <Field label={t('task.choiceGroup')} hint={t('task.choiceGroupHint')}>
           <input className="input" value={form.choiceGroup ?? ''} onChange={(e) => patch({ choiceGroup: e.target.value || undefined })} />
         </Field>
+        {form.category === 'extra_job' && (
+          <Field label={t('task.moneyAmount', { cur: family?.settings.money.currency })} hint={family?.settings.money.enabled ? t('task.moneyHint') : t('task.moneyDisabled')}>
+            <input className="input" type="number" min={0} step={0.5} value={form.moneyAmount ?? ''} onChange={(e) => patch({ moneyAmount: e.target.value === '' ? undefined : Number(e.target.value) })} />
+          </Field>
+        )}
+        <Field label={t('task.exercise')} hint={t('task.exerciseHint')}>
+          <div className="flex gap-2">
+            <select className="input" value={form.exercise?.kind ?? ''} onChange={(e) => patch({ exercise: e.target.value ? { kind: e.target.value as NonNullable<Task['exercise']>['kind'], reps: form.exercise?.reps ?? 10 } : undefined })}>
+              <option value="">—</option>
+              {(['pushups', 'squats', 'plank', 'jumps', 'other'] as const).map((k) => <option key={k} value={k}>{t(`exercise.${k}`)}</option>)}
+            </select>
+            {form.exercise && <input className="input w-24" type="number" min={1} value={form.exercise.reps} onChange={(e) => patch({ exercise: { ...form.exercise!, reps: Number(e.target.value) } })} aria-label={t('task.reps')} />}
+          </div>
+        </Field>
+        {form.proofMethod === 'video' && (
+          <>
+            <Toggle label={t('task.nonce')} checked={!!form.nonce} onChange={(nonce) => patch({ nonce })} />
+            <p className="muted text-xs -mt-1 mb-2">{t('task.nonceHint')}</p>
+            {family?.settings.camera.enabled && form.exercise && (
+              <Field label={t('task.camera')} hint={t('task.cameraHint')}>
+                <select className="input" value={form.cameraId ?? ''} onChange={(e) => patch({ cameraId: e.target.value || undefined })}>
+                  <option value="">—</option>
+                  {family.settings.camera.cameras.map((c) => <option key={c.id} value={c.id}>{c.name} · {c.zone}</option>)}
+                </select>
+              </Field>
+            )}
+          </>
+        )}
+        {form.category === 'learning' && (
+          <Field label={t('task.reading')} hint={t('task.readingHint')}>
+            <div className="grid gap-2">
+              <input className="input" placeholder={t('task.bookTitle')} value={form.reading?.bookTitle ?? ''} onChange={(e) => patch({ reading: e.target.value ? { bookTitle: e.target.value, reflectEvery: form.reading?.reflectEvery ?? 3, quiz: form.reading?.quiz } : undefined })} />
+              {form.reading && (
+                <>
+                  <label className="text-sm flex items-center gap-2">{t('task.reflectEvery')} <input className="input w-20" type="number" min={0} max={10} value={form.reading.reflectEvery} onChange={(e) => patch({ reading: { ...form.reading!, reflectEvery: Number(e.target.value) } })} /></label>
+                  {(form.reading.quiz ?? []).map((q, i) => (
+                    <div key={i} className="flex gap-2">
+                      <input className="input" placeholder={t('task.quizQ')} value={q.q} onChange={(e) => patch({ reading: { ...form.reading!, quiz: form.reading!.quiz!.map((x, j) => (j === i ? { ...x, q: e.target.value } : x)) } })} />
+                      <input className="input" placeholder={t('task.quizA')} value={q.a} onChange={(e) => patch({ reading: { ...form.reading!, quiz: form.reading!.quiz!.map((x, j) => (j === i ? { ...x, a: e.target.value } : x)) } })} />
+                    </div>
+                  ))}
+                  {(form.reading.quiz?.length ?? 0) < 3 && <Button variant="ghost" className="text-sm" onClick={() => patch({ reading: { ...form.reading!, quiz: [...(form.reading!.quiz ?? []), { q: '', a: '' }] } })}>＋ {t('task.addQuiz')}</Button>}
+                </>
+              )}
+            </div>
+          </Field>
+        )}
         <Toggle label={t('task.coop')} checked={!!form.coop} onChange={(coop) => patch({ coop })} />
         <Toggle label={t('task.active')} checked={form.active} onChange={(active) => patch({ active })} />
         <ErrorText error={error} />

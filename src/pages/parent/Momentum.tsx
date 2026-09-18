@@ -40,7 +40,7 @@ export default function Momentum() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-extrabold">{t('momentum.title')}</h1>
+      <h1 className="page-title">{t('momentum.title')}</h1>
       <p className="muted text-sm">{t('momentum.parentExplain')}</p>
       {!canEdit && <p className="chip">{t('momentum.supervisorOnly')}</p>}
       <Card>

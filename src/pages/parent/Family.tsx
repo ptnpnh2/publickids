@@ -11,7 +11,7 @@ export default function Family() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-extrabold">{t('nav.family')}</h1>
+        <h1 className="page-title">{t('nav.family')}</h1>
         {isParent && (
           <Link to="/parent/family/new" className="btn btn-primary">
             ＋ {t('family.add')}

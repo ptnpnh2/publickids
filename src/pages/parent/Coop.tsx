@@ -15,7 +15,7 @@ export default function Coop() {
   const total = coop ? Object.values(coop.contributions).reduce((a, b) => a + b, 0) : 0;
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-extrabold">{t('coop.title')}</h1>
+      <h1 className="page-title">{t('coop.title')}</h1>
       <p className="muted text-sm">{t('coop.explain')}</p>
       {coop && (
         <Card>

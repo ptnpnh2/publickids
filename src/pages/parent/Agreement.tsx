@@ -27,7 +27,7 @@ export default function Agreement() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-extrabold">{t('agreement.title')}</h1>
+      <h1 className="page-title">{t('agreement.title')}</h1>
       <p className="muted text-sm">{t('agreement.explain')}</p>
       {reviewDue && <Card>📅 {t('agreement.reviewDue')}</Card>}
       <Card>

@@ -10,7 +10,7 @@ export default function Tasks() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-extrabold">{t('nav.tasks')}</h1>
+        <h1 className="page-title">{t('nav.tasks')}</h1>
         <Link to="/parent/tasks/new" className="btn btn-primary">
           ＋ {t('task.new')}
         </Link>

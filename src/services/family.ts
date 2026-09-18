@@ -28,6 +28,8 @@ export function defaultChildProfile(band: AgeBand, theme: ThemeName = 'sunny'): 
     appFreeDays: [],
     fadingReminders: false,
     sickDays: [],
+    season: 'meadow',
+    castle: [],
   };
   switch (band) {
     case '4-6':

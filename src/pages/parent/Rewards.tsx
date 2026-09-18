@@ -27,7 +27,7 @@ export default function Rewards() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-extrabold">{t('nav.rewards')}</h1>
+        <h1 className="page-title">{t('nav.rewards')}</h1>
         {isParent && <Button onClick={() => setEditing({ section: 'quick', cost: 5, availability: 'always', emoji: '🎁' })}>＋ {t('reward.new')}</Button>}
       </div>
       <p className="muted text-xs">{t('store.neverStore')}</p>

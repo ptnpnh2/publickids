@@ -9,6 +9,8 @@ import { createGoal, createReward, redeemReward, resolveRedemption, saveToGoal }
 import { closeWeeks, publishMomentumConfig, refreshMomentum } from './momentum';
 import { openIncident, advanceIncident, applyResponseCost } from './incidents';
 import { DEFAULT_MOMENTUM } from '@/domain/momentum';
+import { requestPayout, markSettled } from './money';
+import { jarBalances } from '@/domain/money';
 import type { Task } from '@/domain/types';
 
 async function setup() {
@@ -116,5 +118,22 @@ describe('core family loop', () => {
     await expect(advanceIncident(parent.id, inc.id, {})).rejects.toThrow('incident.coolingOff');
     await expect(applyResponseCost(parent.id, inc.id, 'tv', 2)).rejects.toThrow('responseCost.disabled');
     expect(await childBalance(child.id)).toBe(2);
+  });
+
+  it('extra jobs feed the separate money ledger, never points-for-money mixing', async () => {
+    const { parent, child, family, base } = await setup();
+    await db.families.update(family.id, { settings: { ...(await db.families.get(family.id))!.settings, money: { enabled: true, currency: 'EUR', interestPctMonthly: 2, jars: { save: 50, spend: 40, give: 10 } } } });
+    const job = await createTask(parent.id, { ...base, title: 'Wash the car', category: 'extra_job', moneyAmount: 10, approverTier: 'parent', basePoints: 5 });
+    const sub = await submitTask({ task: job, child, proofMethod: 'self_check' });
+    await approveSubmission(parent.id, sub.id);
+    const entries = await db.money.where('childId').equals(child.id).toArray();
+    expect(jarBalances(entries, child.id)).toEqual({ save: 5, spend: 4, give: 1 });
+    expect(await childBalance(child.id)).toBe(5); // points stay separate
+    await requestPayout(parent.id, child.id, 'spend', 4);
+    const payout = (await db.money.where('childId').equals(child.id).toArray()).find((e) => e.kind === 'spend')!;
+    expect(payout.settled).toBe(false);
+    await markSettled(parent.id, payout.id);
+    expect((await db.money.get(payout.id))!.settled).toBe(true);
+    await expect(requestPayout(parent.id, child.id, 'give', 5)).rejects.toThrow('money.notEnough');
   });
 });

@@ -6,7 +6,8 @@
   "locale": {
     "en": "English",
     "uk": "Українська",
-    "es": "Español"
+    "es": "Español",
+    "ru": "Русский"
   },
   "nav": {
     "today": "Today",
@@ -107,7 +108,9 @@
   },
   "theme": {
     "sunny": "Sunny",
-    "space": "Space"
+    "space": "Space",
+    "forest": "Forest",
+    "ocean": "Ocean"
   },
   "celebration": {
     "quiet": "Quiet",
@@ -141,7 +144,9 @@
     "allDone": "All done for today. Go play!",
     "waitingParent": "a parent will look soon",
     "windowClosed": "window closed — you can still send it",
-    "graduated": "You graduated from the app! Your routines are yours now. 🎓"
+    "graduated": "You graduated from the app! Your routines are yours now. 🎓",
+    "progressLine": "{{done}} of {{total}} done today",
+    "freeDay": "Nothing scheduled today."
   },
   "status": {
     "submitted": "Sent — waiting for a look",
@@ -215,7 +220,24 @@
     "proposedBy": "Proposed by {{name}}",
     "updatedExplain": "A parent updated this task.",
     "simplified": "We made this task simpler.",
-    "rescheduled": "We moved the time window."
+    "rescheduled": "We moved the time window.",
+    "moneyAmount": "Money for this job ({{cur}})",
+    "moneyHint": "Goes to the child's jars when approved.",
+    "moneyDisabled": "Enable the money ledger in More → Money first.",
+    "exercise": "Exercise set (optional)",
+    "exerciseHint": "Objective, countable actions. Pair with a video proof and an optional nonce.",
+    "reps": "Reps",
+    "nonce": "Require a fresh on-screen code in the video",
+    "nonceHint": "Proves the video was recorded now. It never proves who — you still decide.",
+    "camera": "Camera for proof (optional)",
+    "cameraHint": "Child can request a short clip from a fixed safe-zone camera instead of using a phone.",
+    "reading": "Reading (optional)",
+    "readingHint": "Occasional reflection the child chooses — never after every session.",
+    "bookTitle": "Book title",
+    "reflectEvery": "Reflect every N sessions (0 = never)",
+    "quizQ": "Question",
+    "quizA": "Expected answer",
+    "addQuiz": "Add quiz question"
   },
   "category": {
     "selfcare": "Self-care",
@@ -266,7 +288,16 @@
     "sent": "Sent! A parent will take a look.",
     "sentSelf": "Nice! Sent.",
     "needsLookExplain": "Nothing is wrong — a parent just wants to take a look.",
-    "micDenied": "Microphone access was not allowed."
+    "micDenied": "Microphone access was not allowed.",
+    "nonceStart": "Show today's code",
+    "nonceSay": "Say or show this in your video",
+    "nonceTtl": "Valid for 10 minutes",
+    "nonceWas": "Code shown: {{code}}",
+    "nonceExpired": "The code expired — show a new one and record again.",
+    "videoCaps": "Short clips only (max {{s}} s). Video is deleted after review.",
+    "videoTooLarge": "Video is too long or too large.",
+    "repsDone": "How many {{kind}} did you do?",
+    "repsCounted": "Counted: {{n}}"
   },
   "verification": {
     "manual": "Manual",
@@ -494,7 +525,11 @@
     "someNotAllowed": "Some items need a parent to approve.",
     "auditSample": "Audit sample (auto-approved)",
     "auditOk": "Looks right",
-    "auditWrong": "AI was wrong"
+    "auditWrong": "AI was wrong",
+    "nonceCheck": "check the code appears in the video",
+    "cameraClip": "camera clip, {{s}} s",
+    "repsClaimed": "claimed {{n}} of {{target}}",
+    "repsCounted": "Counted reps"
   },
   "ai": {
     "rec": {
@@ -758,7 +793,39 @@
     "independentDown": "Independent starts went down vs. last week.",
     "tooManyTasks": "{{n}} point-earning tasks active — more than recommended.",
     "ok": "Nothing unusual.",
-    "disclaimer": "Observable patterns only — this never claims to detect laziness, honesty, personality, mood or motivation."
+    "disclaimer": "Observable patterns only — this never claims to detect laziness, honesty, personality, mood or motivation.",
+    "explain8w": "Last 8 weeks. Observable patterns, not judgments.",
+    "status": {
+      "ok": "fine",
+      "watch": "watch",
+      "act": "act"
+    },
+    "metric": {
+      "proofBurden": "Proof burden",
+      "doubtRate": "Needed a second look",
+      "appealRate": "Appeals",
+      "bonusRatio": "Bonus vs. base points",
+      "rewardLight": "Reward-light completions",
+      "independentStarts": "Independent starts",
+      "negotiation": "Point negotiation",
+      "overrides": "Supervisor overrides",
+      "autoApproved": "Auto-approved",
+      "pointTasks": "Point-earning tasks active",
+      "topLevel": "Kids at top momentum level"
+    },
+    "hint": {
+      "proofBurden": "Share of approvals that needed photo/audio/video.",
+      "doubtRate": "Share of submissions marked needs-look or retry.",
+      "appealRate": "Share of submissions appealed.",
+      "bonusRatio": "Weekly bonuses as % of base points (cap 15%).",
+      "rewardLight": "Approved without points — a sign habits are carrying themselves.",
+      "independentStarts": "Completed without a reminder.",
+      "negotiation": "Task, reward and goal proposals from kids.",
+      "overrides": "Momentum configuration changes.",
+      "autoApproved": "{{errors}} AI errors recorded via appeals or audits.",
+      "pointTasks": "Recommended: at most 3 per child.",
+      "topLevel": "Private — not a ranking."
+    }
   },
   "audit": {
     "title": "Change history",
@@ -952,5 +1019,123 @@
     "parkTrip": "Trip to the park",
     "lego": "Lego set",
     "book": "New book"
+  },
+  "exercise": {
+    "pushups": "push-ups",
+    "squats": "squats",
+    "plank": "plank seconds",
+    "jumps": "jumping jacks",
+    "other": "reps"
+  },
+  "camera": {
+    "title": "Camera connector (optional)",
+    "explain": "Off by default. A fixed safe-zone camera can capture a short event clip for objective actions like push-ups, so parents review less. It proves an action happened in view — never who did it.",
+    "enable": "Enable camera proof (parent consent)",
+    "gateway": "Local gateway URL",
+    "gatewayHint": "A read-only gateway on your home network (see gateway/README.md). Never a live stream.",
+    "maxClip": "Max clip seconds (≤60)",
+    "dailyLimit": "Clips per day",
+    "deleteClips": "Delete clips right after review",
+    "name": "Camera name",
+    "zone": "Safe zone (e.g. living-room mat)",
+    "add": "Add camera",
+    "assents": "{{n}} kids agreed",
+    "start": "Start camera proof ({{name}})",
+    "recording": "Recording a short clip…",
+    "assent": "I agree to use the {{name}} camera in the {{zone}}",
+    "childNote": "A red indicator shows while a clip is recorded. You can always use your phone instead.",
+    "rule1": "Event-triggered clips only — no continuous recording, history browsing or live view.",
+    "rule2": "Never bedrooms, bathrooms, dressing areas or eating.",
+    "rule3": "No face recognition or claims about who did it; uncertain clips go to a parent.",
+    "rule4": "Each child gives assent; an alternative proof is always available.",
+    "reason": {
+      "disabled": "Camera proof is off.",
+      "no_consent": "A parent has not consented yet.",
+      "no_assent": "You have not agreed to this camera yet.",
+      "zone": "That zone is not allowed for camera proof.",
+      "window": "The camera is not available at this time.",
+      "limit": "Daily clip limit reached — use your phone instead.",
+      "clip_length": "Clip length is out of bounds.",
+      "not_eligible": "This task cannot use camera proof.",
+      "no_camera": "No camera configured for this task.",
+      "gateway": "Could not reach the camera gateway — record with your phone instead."
+    }
+  },
+  "reading": {
+    "reflectTitle": "Tell us about “{{book}}”",
+    "reflectHint": "Pick one — it's occasional, not a test.",
+    "kind": {
+      "retell": "Retell it out loud to a parent",
+      "drawing": "Draw a scene",
+      "passage": "Favourite passage",
+      "note": "One-sentence note",
+      "quiz": "Quick quiz",
+      "conversation": "Chat with a parent",
+      "selflog": "Just log it"
+    },
+    "placeholder": {
+      "passage": "Copy a sentence you liked",
+      "note": "One sentence about what happened",
+      "quiz": "Your answers"
+    }
+  },
+  "quest": {
+    "title": "Season",
+    "neverExpires": "Seasons never expire — switch any time, nothing is lost.",
+    "next": "{{n}} more approved tasks to unlock {{emoji}}",
+    "castle": "My castle",
+    "castleHint": "A new piece every 4 approved tasks. Nothing ever gets ruined.",
+    "pickSeason": "Choose a season"
+  },
+  "season": {
+    "meadow": "Meadow",
+    "space": "Space",
+    "ocean": "Ocean"
+  },
+  "money": {
+    "title": "Money",
+    "explain": "Separate from points and only for extra jobs beyond baseline chores (never for grades or kindness). Save / spend / give jars teach budgeting.",
+    "enable": "Enable the money ledger",
+    "currency": "Currency",
+    "interest": "Save-jar interest (% / month)",
+    "interestHint": "Paid by you, added monthly.",
+    "jarsSplit": "Default split (%)",
+    "jarsHint": "Must add up to 100.",
+    "jarsInvalid": "Jar percentages must add up to 100.",
+    "jar": {
+      "save": "Save",
+      "spend": "Spend",
+      "give": "Give"
+    },
+    "earned": "Earned",
+    "unsettled": "To hand over",
+    "settle": "Settled",
+    "jarLabel": "From jar",
+    "amount": "Amount",
+    "payout": "Pay out",
+    "notEnough": "Not enough in that jar.",
+    "myMoney": "My money",
+    "childHint": "From extra jobs. Points are separate.",
+    "interestNote": "Save jar grows {{pct}}% per month — paid by your parents.",
+    "open": "Open money ledger",
+    "neverGrades": "Never money for grades, kindness, eating or basic chores.",
+    "settingsChanged": "Money settings were changed.",
+    "spendOut": "Spend-jar payout",
+    "giveOut": "Give-jar donation",
+    "saveOut": "Save-jar payout",
+    "moveTo": {
+      "save": "Moved to Save",
+      "spend": "Moved to Spend",
+      "give": "Moved to Give"
+    },
+    "moveFrom": {
+      "save": "Moved from Save",
+      "spend": "Moved from Spend",
+      "give": "Moved from Give"
+    }
+  },
+  "reminder": {
+    "windowOpen": "It's time — open until {{end}}.",
+    "closingSoon": "Closing soon — until {{end}}."
   }
 }

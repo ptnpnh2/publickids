@@ -120,3 +120,22 @@ export function useKudos(toId?: string) {
 export function useMedia(id?: string) {
   return useLiveQuery(() => (id ? db.media.get(id) : undefined), [id]);
 }
+
+export function useMoney(childId?: string) {
+  const familyId = useSession((s) => s.session?.familyId);
+  return (
+    useLiveQuery(() => {
+      if (!familyId) return [];
+      return childId ? db.money.where('childId').equals(childId).toArray() : db.money.where('familyId').equals(familyId).toArray();
+    }, [familyId, childId]) ?? []
+  );
+}
+
+export function useReminders(childId?: string) {
+  return useLiveQuery(() => (childId ? db.reminders.where('childId').equals(childId).toArray() : []), [childId]) ?? [];
+}
+
+export function useCameraEvents() {
+  const familyId = useSession((s) => s.session?.familyId);
+  return useLiveQuery(() => (familyId ? db.cameraEvents.where('familyId').equals(familyId).toArray() : []), [familyId]) ?? [];
+}

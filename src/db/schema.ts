@@ -1,7 +1,7 @@
 import Dexie, { type EntityTable } from 'dexie';
 import type {
-  Agreement, AuditEntry, CoopGoal, Family, Goal, Incident, Kudos, LedgerEntry, Media, Member, MomentumState,
-  Redemption, Reflection, Reward, Submission, Task, TaskStage,
+  Agreement, AuditEntry, CameraEvent, CoopGoal, Family, Goal, Incident, Kudos, LedgerEntry, Media, Member, MomentumState, MoneyEntry,
+  Redemption, Reflection, Reminder, Reward, Submission, Task, TaskStage,
 } from '@/domain/types';
 
 /**
@@ -26,6 +26,9 @@ export class KidsDB extends Dexie {
   audit!: EntityTable<AuditEntry, 'id'>;
   reflections!: EntityTable<Reflection, 'id'>;
   kudos!: EntityTable<Kudos, 'id'>;
+  money!: EntityTable<MoneyEntry, 'id'>;
+  reminders!: EntityTable<Reminder, 'id'>;
+  cameraEvents!: EntityTable<CameraEvent, 'id'>;
 
   constructor(name = 'kids-incentives') {
     super(name);
@@ -47,6 +50,11 @@ export class KidsDB extends Dexie {
       audit: 'id, familyId, createdAt, actorId',
       reflections: 'id, familyId, childId, createdAt',
       kudos: 'id, familyId, toId, createdAt',
+    });
+    this.version(2).stores({
+      money: 'id, familyId, childId, kind, createdAt',
+      reminders: 'id, familyId, childId, taskId, dateKey, [taskId+childId+dateKey]',
+      cameraEvents: 'id, familyId, childId, taskId, createdAt',
     });
   }
 }

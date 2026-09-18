@@ -30,7 +30,7 @@ export default function Repair() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-extrabold">{t('repair.title')}</h1>
+        <h1 className="page-title">{t('repair.title')}</h1>
         {isParent && <Button onClick={() => { setForm({ childId: kids[0]?.id ?? '', description: '', ruleId: '', safetyRule: false }); setOpen(true); }}>＋ {t('repair.open')}</Button>}
       </div>
       <p className="muted text-sm">{t('repair.explain')}</p>
