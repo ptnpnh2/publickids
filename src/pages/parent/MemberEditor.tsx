@@ -11,6 +11,7 @@ import { hashSecret } from '@/services/crypto';
 import { isElevated, useSession } from '@/services/session';
 import { AVATAR_CHOICES } from '@/services/templates';
 import type { AgeBand, ChildProfile, Role } from '@/domain/types';
+import { appUrl } from '@/services/url';
 
 export default function MemberEditor() {
   const { t } = useTranslation();
@@ -168,7 +169,7 @@ export default function MemberEditor() {
           <Field label={t('independence.vacationUntil')}><input className="input" type="date" value={c.vacationUntil?.slice(0, 10) ?? ''} onChange={(e) => setProfile({ vacationUntil: e.target.value ? new Date(e.target.value).toISOString() : undefined })} /></Field>
           <div className="flex flex-wrap gap-2 mt-2">
             <Button variant="secondary" onClick={() => setProfile({ sickDays: Array.from(new Set([...c.sickDays, new Date().toISOString().slice(0, 10)])) })}>🤒 {t('independence.sickToday')}</Button>
-            <Button variant="secondary" onClick={() => window.open(`/parent/family/${existing.id}/progress?print=1`, '_blank')}>🖨️ {t('independence.printRoutine')}</Button>
+            <Button variant="secondary" onClick={() => window.open(appUrl(`/parent/family/${existing.id}/progress?print=1`), '_blank')}>🖨️ {t('independence.printRoutine')}</Button>
             {!c.graduatedFromApp ? (
               <Button variant="ghost" onClick={() => setProfile({ graduatedFromApp: new Date().toISOString() })}>🎓 {t('independence.graduate')}</Button>
             ) : (

@@ -4,11 +4,21 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '@/db/schema';
 import { SUPPORTED_LOCALES, setLocale } from '@/i18n';
 import i18n from '@/i18n';
+import { useState } from 'react';
+import { DEMO, seedDemoFamily } from '@/services/demo';
+import type { Locale } from '@/domain/types';
 
 export default function Welcome() {
   const { t } = useTranslation();
   const families = useLiveQuery(() => db.families.toArray(), []) ?? [];
   const hasFamily = families.length > 0;
+  const [busy, setBusy] = useState(false);
+  const demoExists = families.some((f) => f.name === 'Demo family');
+  async function demo() {
+    setBusy(true);
+    await seedDemoFamily((i18n.language as Locale) ?? 'en', t);
+    setBusy(false);
+  }
   return (
     <div className="max-w-md mx-auto min-h-dvh flex flex-col justify-center px-4 py-8 gap-4">
       <div className="text-center">
@@ -34,6 +44,7 @@ export default function Welcome() {
           <Link to="/create" className="btn btn-ghost text-sm">
             {t('welcome.createAnother')}
           </Link>
+          {demoExists && <DemoCard />}
         </>
       ) : (
         <>
@@ -41,8 +52,27 @@ export default function Welcome() {
             {t('welcome.createFamily')}
           </Link>
           <p className="muted text-sm text-center">{t('welcome.localNote')}</p>
+          <button className="btn btn-secondary" disabled={busy} onClick={demo}>
+            🧪 {t('welcome.tryDemo')}
+          </button>
         </>
       )}
+    </div>
+  );
+}
+
+function DemoCard() {
+  const { t } = useTranslation();
+  return (
+    <div className="card text-sm">
+      <p className="font-bold mb-1">{t('welcome.demoTitle')}</p>
+      <p>
+        {t('welcome.demoParent')}: <code>{DEMO.email}</code> / <code>{DEMO.password}</code>
+      </p>
+      <p>
+        {t('welcome.demoKids')}: {DEMO.kids.map((k) => `${k.emoji} ${k.name} — PIN ${k.pin}`).join(' · ')}
+      </p>
+      <p className="muted text-xs mt-1">{t('welcome.demoNote')}</p>
     </div>
   );
 }

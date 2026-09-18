@@ -10,6 +10,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     VitePWA({
+      disable: process.env.ARTIFACT_BUILD === '1',
       registerType: 'autoUpdate',
       includeAssets: ['icon.svg'],
       manifest: {

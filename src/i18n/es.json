@@ -50,7 +50,12 @@
     "kidLogin": "Soy niño/a",
     "parentLogin": "Padre / madre / cuidador",
     "createAnother": "Crear otra familia",
-    "localNote": "Todo se queda en este dispositivo hasta que conectes un backend familiar. Sin anuncios ni venta de datos."
+    "localNote": "Todo se queda en este dispositivo hasta que conectes un backend familiar. Sin anuncios ni venta de datos.",
+    "tryDemo": "Probar con una familia de ejemplo",
+    "demoTitle": "Familia de ejemplo (datos de muestra)",
+    "demoParent": "Acceso de padres",
+    "demoKids": "Niños",
+    "demoNote": "Los datos de ejemplo solo viven en este navegador. Crea tu propia familia cuando quieras."
   },
   "auth": {
     "familyName": "Nombre de la familia",

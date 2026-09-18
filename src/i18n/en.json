@@ -50,7 +50,12 @@
     "kidLogin": "I'm a kid",
     "parentLogin": "Parent / caregiver",
     "createAnother": "Create another family",
-    "localNote": "Everything stays on this device until you connect a family backend. No ads, no data sales."
+    "localNote": "Everything stays on this device until you connect a family backend. No ads, no data sales.",
+    "tryDemo": "Try with a demo family",
+    "demoTitle": "Demo family (example data)",
+    "demoParent": "Parent login",
+    "demoKids": "Kids",
+    "demoNote": "Sample data lives only in this browser. Create your own family whenever you like."
   },
   "auth": {
     "familyName": "Family name",
