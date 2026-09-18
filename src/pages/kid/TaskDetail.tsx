@@ -65,7 +65,7 @@ export default function TaskDetail() {
   function readAloud() {
     if (!task) return;
     const u = new SpeechSynthesisUtterance([task.title, ...task.microSteps, task.completionDefinition].join('. '));
-    u.lang = me?.locale === 'uk' ? 'uk-UA' : me?.locale === 'es' ? 'es-ES' : me?.locale === 'ru' ? 'ru-RU' : 'en-US';
+    u.lang = me?.locale === 'uk' ? 'uk-UA' : me?.locale === 'es' ? 'es-ES' : 'en-US';
     speechSynthesis.speak(u);
   }
 

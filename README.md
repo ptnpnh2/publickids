@@ -24,7 +24,7 @@ until you connect a Supabase project (see `ARCHITECTURE.md` and `.env.example`).
 - **Repair flow**: Pause → Understand → Repair → Support → Close, cooling-off, undo, response cost off by default, appeals, correction-heavy coaching.
 - **Family agreement**, weekly three-card digest + System Balance Review, Praise Coach, Fresh Start, Independence Mode (app-free days, fading reminders, printable routine, graduation), co-op adventure, no-decay avatar, accessibility profile, audit log.
 - **V2**: separate extra-job **money ledger** (save / spend / give jars, parent-funded interest, settle payouts), **nonce video proofs** (fresh on-screen code), **exercise sets** with rep counts, optional **IP-camera connector** through a read-only local gateway (`gateway/`), **reading reflection** the child chooses (never every session), **advanced System Balance Review**, **non-expiring seasons/quests and castle**, bounded **reminders**.
-- **Languages**: EN / UA / ES / RU. **Themes**: Sunny / Space / Forest / Ocean.
+- **Languages**: EN / UA / ES. **Themes**: Sunny / Space / Forest / Ocean.
 
 ## Repository layout
 See `ARCHITECTURE.md`. Product invariants for contributors and coding agents are in `CLAUDE.md`; the condensed

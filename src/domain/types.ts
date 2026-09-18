@@ -2,7 +2,7 @@
  * Domain types. These mirror the Supabase schema in supabase/migrations so the
  * local (IndexedDB) store and a future synced backend share one shape.
  */
-export type Locale = 'en' | 'uk' | 'es' | 'ru';
+export type Locale = 'en' | 'uk' | 'es';
 export type ID = string;
 export type ISODate = string; // ISO-8601 timestamp
 export type DateKey = string; // YYYY-MM-DD, family-local

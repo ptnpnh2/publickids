@@ -33,7 +33,7 @@ export default function Settings() {
           <Segmented value={s.preset} onChange={(preset: Preset) => updateFamily(me.id, family.id, { settings: applyPreset(preset, s) }, 'settings.presetChanged')} options={(['simple', 'balanced', 'independent', 'custom'] as Preset[]).map((p) => ({ value: p, label: t(`preset.${p}`) }))} />
         </Field>
         <Field label={t('common.language')}>
-          <Segmented value={me.locale} onChange={(locale: Locale) => { setLocale(locale); void updateMember(me.id, me.id, { locale }); }} options={[{ value: 'en', label: 'EN' }, { value: 'uk', label: 'UA' }, { value: 'es', label: 'ES' }, { value: 'ru', label: 'RU' }]} />
+          <Segmented value={me.locale} onChange={(locale: Locale) => { setLocale(locale); void updateMember(me.id, me.id, { locale }); }} options={[{ value: 'en', label: 'EN' }, { value: 'uk', label: 'UA' }, { value: 'es', label: 'ES' }]} />
         </Field>
       </Card>
       {isParent && (

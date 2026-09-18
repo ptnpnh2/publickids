@@ -220,7 +220,7 @@ export default function Me() {
         <label className="label mt-3">{t('onboarding.celebration')}</label>
         <Segmented value={c.celebration} onChange={(celebration: CelebrationStyle) => set({ celebration })} options={[{ value: 'quiet', label: t('celebration.quiet') }, { value: 'fun', label: t('celebration.fun') }, { value: 'big', label: t('celebration.big') }]} />
         <label className="label mt-3">{t('common.language')}</label>
-        <Segmented value={me.locale} onChange={(locale: Locale) => { setLocale(locale); void updateMember(me.id, me.id, { locale }); }} options={[{ value: 'en', label: 'EN' }, { value: 'uk', label: 'UA' }, { value: 'es', label: 'ES' }, { value: 'ru', label: 'RU' }]} />
+        <Segmented value={me.locale} onChange={(locale: Locale) => { setLocale(locale); void updateMember(me.id, me.id, { locale }); }} options={[{ value: 'en', label: 'EN' }, { value: 'uk', label: 'UA' }, { value: 'es', label: 'ES' }]} />
         <div className="mt-2">
           <Toggle label={t('a11y.soundOff')} checked={c.soundOff} onChange={(soundOff) => set({ soundOff })} />
           <Toggle label={t('a11y.reducedMotion')} checked={c.reducedMotion} onChange={(reducedMotion) => set({ reducedMotion })} />
