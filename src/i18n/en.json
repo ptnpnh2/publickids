@@ -296,7 +296,15 @@
     "videoCaps": "Short clips only (max {{s}} s). Video is deleted after review.",
     "videoTooLarge": "Video is too long or too large.",
     "repsDone": "How many {{kind}} did you do?",
-    "repsCounted": "Counted: {{n}}"
+    "repsCounted": "Counted: {{n}}",
+    "autoCountHint": "After recording, the app counts repetitions on this device using body-pose tracking. Nothing is uploaded for counting.",
+    "counting": "Counting… {{pct}}%",
+    "autoCounted": "Counted {{n}} {{unit}} on this device ({{pct}}% sure)",
+    "unit": {
+      "reps": "reps",
+      "seconds": "seconds"
+    },
+    "serverCounted": "Video check counted {{n}}"
   },
   "verification": {
     "manual": "Manual",
@@ -528,7 +536,9 @@
     "nonceCheck": "check the code appears in the video",
     "cameraClip": "camera clip, {{s}} s",
     "repsClaimed": "claimed {{n}} of {{target}}",
-    "repsCounted": "Counted reps"
+    "repsCounted": "Counted reps",
+    "autoCount": "counted {{n}} ({{pct}}%)",
+    "serverCount": "video model counted {{n}} ({{pct}}%)"
   },
   "ai": {
     "rec": {
@@ -542,7 +552,9 @@
       "very_small_image": "Image is very small.",
       "missing_media": "No media attached.",
       "too_large": "File too large for AI check.",
-      "typeNotSupported": "AI check not available for this proof type yet."
+      "typeNotSupported": "AI check not available for this proof type yet.",
+      "reps_mismatch": "The on-device count differs from what the child entered.",
+      "nonce_not_seen": "The challenge code was not clearly seen or heard in the video."
     }
   },
   "family": {

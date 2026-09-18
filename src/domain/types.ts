@@ -223,6 +223,7 @@ export interface AIResult {
   model: string;
   version: string;
   at: ISODate;
+  repsCounted?: number; // server-side video model count (decision support only)
 }
 
 export interface Submission {
@@ -251,7 +252,8 @@ export interface Submission {
   independentStart: boolean; // completed without a reminder
   nonce?: { code: string; issuedAt: ISODate; expiresAt: ISODate };
   repsClaimed?: number;
-  repsCounted?: number;
+  repsCounted?: number; // confirmed by the parent
+  repsAuto?: { count: number; confidence: number; trackedPct: number; unit: 'reps' | 'seconds'; model: string }; // on-device pose count
   reflection?: { kind: ReflectionKind; text?: string; mediaId?: ID };
   cameraClip?: { cameraId: string; requestedAt: ISODate; seconds: number };
 }

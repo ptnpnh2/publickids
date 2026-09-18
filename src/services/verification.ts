@@ -1,6 +1,7 @@
 import type { AIResult } from '@/domain/types';
 import type { VerifyInput, Verifier } from '@/domain/verification';
 import { looksDuplicate } from '@/domain/phash';
+import { repsMismatch } from '@/domain/reps';
 
 /**
  * Provider-agnostic gateway: verifyProof(type, media, taskRules).
@@ -16,6 +17,7 @@ export const heuristicVerifier: Verifier = {
     if (input.media?.hash && input.priorHashes.some((h) => looksDuplicate(h, input.media!.hash!))) signals.push('duplicate_media');
     if (input.type === 'photo' && input.media && input.media.blob.size < 3_000) signals.push('very_small_image');
     if (!input.media && (input.type === 'photo' || input.type === 'audio' || input.type === 'video')) signals.push('missing_media');
+    if (repsMismatch(input.repsClaimed, input.repsAuto)) signals.push('reps_mismatch');
     const needsLook = signals.length > 0;
     return {
       recommendation: needsLook ? 'needs_look' : 'looks_ok',
@@ -39,6 +41,10 @@ export function remoteVerifier(baseUrl: string, anonKey: string): Verifier {
       form.set('task', JSON.stringify(input.task));
       form.set('locale', input.locale);
       form.set('priorHashes', JSON.stringify(input.priorHashes));
+      if (input.exercise) form.set('exercise', JSON.stringify(input.exercise));
+      if (input.nonce) form.set('nonce', input.nonce);
+      if (input.repsClaimed !== undefined) form.set('repsClaimed', String(input.repsClaimed));
+      if (input.repsAuto) form.set('repsAuto', JSON.stringify(input.repsAuto));
       if (input.media) form.set('media', input.media.blob, `proof.${input.media.mime.split('/')[1] ?? 'bin'}`);
       const res = await fetch(`${baseUrl}/functions/v1/verify-proof`, { method: 'POST', headers: { Authorization: `Bearer ${anonKey}`, apikey: anonKey }, body: form });
       if (!res.ok) throw new Error(`verify-proof ${res.status}`);
@@ -56,10 +62,14 @@ export function configureVerifier(v: Verifier): void {
 export async function verifyProof(input: VerifyInput): Promise<AIResult> {
   // Always run the cheap local checks; escalate to the remote model only when they are clean.
   const local = await heuristicVerifier.verify(input);
-  if (local.recommendation === 'needs_look' || active === heuristicVerifier) return local;
+  const onlyRepsDoubt = local.signals.every((s) => s === 'reps_mismatch');
+  if (active === heuristicVerifier || (local.recommendation === 'needs_look' && !onlyRepsDoubt)) return local;
   try {
     const remote = await active.verify(input);
-    return { ...remote, signals: [...local.signals, ...remote.signals] };
+    const signals = Array.from(new Set([...local.signals, ...remote.signals]));
+    if (remote.repsCounted !== undefined && repsMismatch(input.repsClaimed, { count: remote.repsCounted, confidence: remote.confidence })) signals.push('reps_mismatch');
+    const recommendation = signals.length ? 'needs_look' : remote.recommendation;
+    return { ...remote, recommendation, signals: Array.from(new Set(signals)) };
   } catch {
     // Abstain: a model outage is never a rejection; the parent simply reviews.
     return { ...local, explanation: 'ai.explain.unavailable', confidence: 0.3 };

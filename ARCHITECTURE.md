@@ -52,6 +52,16 @@ before a Fresh Start excluded), level evaluation, promotion/grace rules, config 
 - `domain/balance.ts`: advanced System Balance Review metrics over 8 weeks.
 - `domain/reminders.ts` + `services/reminders.ts`: bounded reminders (quiet hours, holiday mode, fading in Independence Mode).
 
+## Repetition counting (exercise proofs)
+Two independent counters feed the parent's approval screen; neither is a verdict:
+1. **On-device** (`services/pose.ts`, `domain/reps.ts`): MediaPipe Pose Landmarker (lite) runs in the browser over the
+   recorded clip at ~8 fps; joint angles → hysteresis cycle counter → count + confidence + tracked %. Assets are served
+   same-origin from `public/pose/` (populated by `scripts/fetch-pose-assets.mjs` on `npm install`) and cached by the
+   service worker, so counting works offline and no video leaves the device.
+2. **Server-side** (`supabase/functions/verify-proof`): when a Supabase project is configured, short clips (≤60 s,
+   ≤20 MB) go to a video-capable model that returns `repsCounted`, nonce presence and a confidence. Disagreement between
+   the child's entry and either count adds the `reps_mismatch` signal → "needs a parent's look", never a rejection.
+
 ## Not in this build (per plan)
 Capacitor shells, device attestation and store submission (manual items); LMS/school integrations, moderated
 template marketplace and extended-family sponsor funding flows (V3). The Supabase sync adapter still needs a live project.

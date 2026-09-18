@@ -37,6 +37,8 @@ When a feature request conflicts with these, the invariant wins and the request 
 14. **Camera proof is off by default**, event-clip only, never sensitive zones (`zoneAllowed`), needs parent
     consent and child assent, proves *what* happened in view never *who*, and a phone/self-check alternative always exists.
 15. **Quests and seasons never expire or decay**; unlocks are monotonic.
+16. **Automatic rep counts are decision support.** On-device and server counts are shown with confidence next to the
+    child's own number; a mismatch only adds `reps_mismatch` ("needs a parent's look"), and the parent confirms the final count.
 
 ## Engineering conventions
 - Domain rules live in `src/domain/*` as pure functions with tests; services in `src/services/*` touch the DB.

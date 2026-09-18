@@ -296,7 +296,15 @@
     "videoCaps": "Solo clips cortos (máx. {{s}} s). El vídeo se borra tras la revisión.",
     "videoTooLarge": "El vídeo es demasiado largo o pesado.",
     "repsDone": "¿Cuántas {{kind}} hiciste?",
-    "repsCounted": "Contadas: {{n}}"
+    "repsCounted": "Contadas: {{n}}",
+    "autoCountHint": "Tras grabar, la app cuenta las repeticiones en este dispositivo con seguimiento de postura. No se sube nada para contar.",
+    "counting": "Contando… {{pct}}%",
+    "autoCounted": "Contadas {{n}} {{unit}} en este dispositivo ({{pct}}% de certeza)",
+    "unit": {
+      "reps": "repeticiones",
+      "seconds": "segundos"
+    },
+    "serverCounted": "La revisión de vídeo contó {{n}}"
   },
   "verification": {
     "manual": "Manual",
@@ -528,7 +536,9 @@
     "nonceCheck": "comprueba que el código aparece en el vídeo",
     "cameraClip": "clip de cámara, {{s}} s",
     "repsClaimed": "declaradas {{n}} de {{target}}",
-    "repsCounted": "Repeticiones contadas"
+    "repsCounted": "Repeticiones contadas",
+    "autoCount": "contadas {{n}} ({{pct}}%)",
+    "serverCount": "el modelo de vídeo contó {{n}} ({{pct}}%)"
   },
   "ai": {
     "rec": {
@@ -542,7 +552,9 @@
       "very_small_image": "La imagen es muy pequeña.",
       "missing_media": "No hay archivo adjunto.",
       "too_large": "Archivo demasiado grande para la IA.",
-      "typeNotSupported": "La comprobación IA aún no está disponible para este tipo de prueba."
+      "typeNotSupported": "La comprobación IA aún no está disponible para este tipo de prueba.",
+      "reps_mismatch": "El recuento del dispositivo difiere de lo que introdujo el niño.",
+      "nonce_not_seen": "El código de reto no se vio ni oyó claramente en el vídeo."
     }
   },
   "family": {
