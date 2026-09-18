@@ -7,6 +7,8 @@ import { analyzeSeries, metricFor, type ExerciseKind, type RepResult, type Sampl
  */
 const BASE = (import.meta.env.BASE_URL || '/').replace(/\/?$/, '/');
 const MODEL_VERSION = 'pose_landmarker_lite/float16/1';
+// Hosted copies may need a different file name (some static hosts only serve known extensions).
+const MODEL_FILE = (import.meta.env.VITE_POSE_MODEL as string | undefined) || 'pose/pose_landmarker_lite.task';
 const FPS = 8;
 
 type Landmarker = import('@mediapipe/tasks-vision').PoseLandmarker;
@@ -19,7 +21,7 @@ async function getLandmarker(): Promise<Landmarker> {
       const vision = await FilesetResolver.forVisionTasks(`${BASE}pose/wasm`);
       const create = (delegate: 'GPU' | 'CPU') =>
         PoseLandmarker.createFromOptions(vision, {
-          baseOptions: { modelAssetPath: `${BASE}pose/pose_landmarker_lite.task`, delegate },
+          baseOptions: { modelAssetPath: `${BASE}${MODEL_FILE}`, delegate },
           runningMode: 'VIDEO',
           numPoses: 1,
         });
