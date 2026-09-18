@@ -1,0 +1,956 @@
+{
+  "app": {
+    "name": "Kids Incentives",
+    "tagline": "Tareas, rutinas e independencia — en familia."
+  },
+  "locale": {
+    "en": "English",
+    "uk": "Українська",
+    "es": "Español"
+  },
+  "nav": {
+    "today": "Hoy",
+    "store": "Tienda",
+    "goal": "Meta",
+    "me": "Yo",
+    "approve": "Aprobar",
+    "tasks": "Tareas",
+    "rewards": "Premios",
+    "family": "Familia",
+    "more": "Más"
+  },
+  "common": {
+    "continue": "Continuar",
+    "back": "Atrás",
+    "login": "Entrar",
+    "save": "Guardar",
+    "send": "Enviar",
+    "print": "Imprimir",
+    "edit": "Editar",
+    "archive": "Archivar",
+    "archived": "Archivado",
+    "restore": "Restaurar",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "apply": "Aplicar",
+    "next": "Siguiente",
+    "undo": "Deshacer",
+    "reset": "Restablecer",
+    "child": "Niño/a",
+    "language": "Idioma",
+    "offline": "Sin conexión — los cambios se guardan en este dispositivo",
+    "switchUser": "Cambiar de usuario",
+    "min": "min",
+    "pts": "pts",
+    "week": "semana",
+    "paused": "En pausa"
+  },
+  "welcome": {
+    "createFamily": "Crear nuestra familia",
+    "kidLogin": "Soy niño/a",
+    "parentLogin": "Padre / madre / cuidador",
+    "createAnother": "Crear otra familia",
+    "localNote": "Todo se queda en este dispositivo hasta que conectes un backend familiar. Sin anuncios ni venta de datos.",
+    "tryDemo": "Probar con una familia de ejemplo",
+    "demoTitle": "Familia de ejemplo (datos de muestra)",
+    "demoParent": "Acceso de padres",
+    "demoKids": "Niños",
+    "demoNote": "Los datos de ejemplo solo viven en este navegador. Crea tu propia familia cuando quieras."
+  },
+  "auth": {
+    "familyName": "Nombre de la familia",
+    "yourName": "Tu nombre",
+    "email": "Correo",
+    "password": "Contraseña",
+    "passwordHint": "Al menos 8 caracteres.",
+    "superUserPassword": "Contraseña de propietario de recuperación",
+    "superUserHint": "Una contraseña aparte y de uso raro para cambios de rol y recuperación. Distinta de la diaria.",
+    "consentNote": "Al continuar confirmas que eres padre, madre o tutor legal y consientes que la app guarde los datos de tareas de tus hijos. Las fotos de prueba se borran tras la revisión por defecto.",
+    "passwordShort": "La contraseña debe tener al menos 8 caracteres.",
+    "superUserDifferent": "La contraseña de recuperación debe tener 8+ caracteres y ser distinta de la diaria.",
+    "recoveryTitle": "Tus códigos de recuperación",
+    "recoveryHint": "Imprímelos o anótalos y guárdalos fuera de línea. Cada código sirve una vez y puede restaurar el acceso o cambiar roles.",
+    "savedCodes": "Los guardé",
+    "invalid": "Correo o contraseña incorrectos.",
+    "enterPin": "Escribe tu PIN",
+    "whoAreYou": "¿Quién eres?",
+    "wrongPin": "Ese PIN no coincide. Inténtalo otra vez.",
+    "noKids": "Aún no hay perfiles de niños. Un padre puede añadirlos en Familia."
+  },
+  "onboarding": {
+    "childTitle": "Añade a tu primer hijo/a",
+    "childName": "Nombre",
+    "avatar": "Elige un avatar",
+    "ageBand": "Preajuste inicial",
+    "ageHint": "La edad solo fija valores iniciales — luego puedes ajustar lectura, densidad, independencia y pruebas.",
+    "pin": "PIN de 4 dígitos",
+    "pinHint": "Cuatro dígitos que el niño recuerde.",
+    "tasksTitle": "Elige hasta 3 tareas iniciales",
+    "tasksHint": "Empieza pequeño: 3–5 tareas activas, no más de 3 con puntos frecuentes.",
+    "rewardsTitle": "Elige 2 premios",
+    "rewardsHint": "Nunca tiempo en familia, comidas, cariño ni necesidades básicas.",
+    "goalTitle": "Una meta a largo plazo",
+    "goalHint": "Algo para ahorrar; la app muestra hitos de 25/50/75%.",
+    "goalPlaceholder": "p. ej. Set de Lego nuevo",
+    "styleTitle": "Aspecto",
+    "theme": "Tema",
+    "celebration": "Estilo de celebración",
+    "celebrationHint": "Breve y omitible. El niño puede cambiarlo después.",
+    "starterNote": "Siguiente: un Modo Inicial de siete días con un éxito de práctica garantizado.",
+    "finish": "Terminar configuración"
+  },
+  "ageBand": {
+    "4-6": "4–6",
+    "7-9": "7–9",
+    "10-12": "10–12",
+    "teen": "Adolescente"
+  },
+  "theme": {
+    "sunny": "Soleado",
+    "space": "Espacio"
+  },
+  "celebration": {
+    "quiet": "Tranquilo",
+    "fun": "Divertido",
+    "big": "Gran momento"
+  },
+  "skin": {
+    "neutral": "Neutro",
+    "space": "Espacio",
+    "garden": "Jardín"
+  },
+  "weekday": {
+    "0": "Do",
+    "1": "Lu",
+    "2": "Ma",
+    "3": "Mi",
+    "4": "Ju",
+    "5": "Vi",
+    "6": "Sá"
+  },
+  "today": {
+    "title": "¡Hola {{name}}!",
+    "momentum": "Tu impulso: {{level}}",
+    "whatIsThis": "¿qué es esto?",
+    "appFree": "📵 Hoy es día sin app. Tu rutina cuenta igual — no hay nada que registrar.",
+    "now": "Ahora",
+    "later": "Después",
+    "done": "Hecho",
+    "helpSent": "Esperando ayuda",
+    "nothingNow": "Nada por ahora — mira en Después.",
+    "allDone": "Todo hecho por hoy. ¡A jugar!",
+    "waitingParent": "un padre lo verá pronto",
+    "windowClosed": "ventana cerrada — aún puedes enviarlo",
+    "graduated": "¡Te graduaste de la app! Tus rutinas ya son tuyas. 🎓"
+  },
+  "status": {
+    "submitted": "Enviado — esperando revisión",
+    "needs_look": "Un padre tiene que mirarlo",
+    "approved": "Aprobado",
+    "retry": "Prueba otra evidencia",
+    "withdrawn": "Cerrado",
+    "help": "Ayuda pedida"
+  },
+  "stage": {
+    "learning": "Aprendiendo",
+    "practicing": "Practicando",
+    "independent": "Independiente",
+    "graduated": "Graduado",
+    "title": "Etapa de apoyo",
+    "explain": {
+      "learning": "Habilidad nueva: puntos cada vez, mucha ayuda.",
+      "practicing": "Cogiendo ritmo: puntos cada vez, menos recordatorios.",
+      "independent": "Casi listo: puntos una de cada dos veces, más comentarios.",
+      "graduated": "Ahora es simplemente lo que hace nuestra familia — solo reconocimiento."
+    },
+    "independentRule": "puntos cada 2.ª vez",
+    "childAssent": "El niño estuvo de acuerdo con este cambio",
+    "booster": "Refuerzo de 7 días",
+    "boosterUntil": "Refuerzo hasta {{date}}"
+  },
+  "task": {
+    "new": "Nueva tarea",
+    "edit": "Editar tarea",
+    "empty": "Aún no hay tareas. Añade 3–5 para empezar.",
+    "capHint": "Mantén 3–5 tareas activas por niño; no más de 3 con puntos frecuentes.",
+    "titlePlaceholder": "Nombre de la tarea",
+    "category": "Categoría",
+    "currency": "Qué gana",
+    "currencyHint": "Contribuciones básicas: reconocimiento por defecto, puntos temporales mientras se aprende.",
+    "basePoints": "Puntos base",
+    "basePointsHint": "1 / 2 / 3 / 5 según tiempo, esfuerzo, complejidad e independencia — nunca la edad.",
+    "suggestValue": "Sugerir un valor",
+    "effort": "Esfuerzo",
+    "complexity": "Complejidad",
+    "independence": "Independencia",
+    "microSteps": "Micro-pasos",
+    "microStepsHint": "Hasta cinco pasos concretos.",
+    "addStep": "Añadir paso",
+    "doneWhen": "Está hecho cuando",
+    "doneWhenPlaceholder": "p. ej. todos los juguetes están en la caja",
+    "imageUrl": "URL de imagen de ejemplo",
+    "imageHint": "Foto opcional de cómo se ve 'hecho'.",
+    "minutes": "Minutos",
+    "windowStart": "Desde",
+    "windowEnd": "Hasta",
+    "schedule": "Horario",
+    "proof": "Método de prueba",
+    "proofHint": "Usa la prueba menos intrusiva que funcione; redúcela a medida que crece la confianza.",
+    "sensitiveWarn": "No se ofrece foto/vídeo para tareas de baño, dormitorio, comida o salud.",
+    "sensitiveProof": "No se permite prueba de foto o vídeo para este tipo de tarea.",
+    "verification": "Verificación",
+    "approver": "Aprobador mínimo",
+    "assign": "Asignada a",
+    "capWarn": "{{name}} ya tiene {{n}} hábitos con puntos frecuentes. Considera solo reconocimiento.",
+    "choiceGroup": "Grupo de elección",
+    "choiceGroupHint": "Tareas con el mismo nombre de grupo: el niño elige una de ellas.",
+    "coop": "Cuenta para la aventura cooperativa familiar",
+    "active": "Activa",
+    "needTitle": "Ponle nombre a la tarea.",
+    "needChild": "Asigna la tarea al menos a un niño.",
+    "ackOnly": "reconocimiento — sin puntos",
+    "readAloud": "Leer en voz alta",
+    "notePlaceholder": "Añade una nota (opcional)",
+    "tickSteps": "Marca los pasos primero",
+    "proposedBy": "Propuesta por {{name}}",
+    "updatedExplain": "Un padre actualizó esta tarea.",
+    "simplified": "Hicimos esta tarea más simple.",
+    "rescheduled": "Movimos la ventana de tiempo."
+  },
+  "category": {
+    "selfcare": "Cuidado personal",
+    "contribution": "Contribución familiar",
+    "routine": "Rutina / esfuerzo escolar",
+    "learning": "Práctica y aprendizaje",
+    "extra_job": "Trabajo extra (con dinero)",
+    "repair": "Plan de reparación"
+  },
+  "categoryHint": {
+    "selfcare": "Dientes, cama, ordenar su cuarto: reconocimiento por defecto; puntos temporales solo mientras se aprende.",
+    "contribution": "Poner la mesa, dar de comer a la mascota: 'somos un equipo'. Puntos temporales, luego se retiran.",
+    "routine": "Rutina de deberes, práctica: solo puntos, por esfuerzo, nunca dinero por notas.",
+    "learning": "Lectura, instrumento, ejercicio: premia el proceso, retíralo cuando el hábito se forme.",
+    "extra_job": "Lavar el coche, quitar malas hierbas: más allá de lo básico. El libro de dinero llega en V2; por ahora puntos.",
+    "repair": "Parte de un plan de reparación — nunca se premia."
+  },
+  "currency": {
+    "ack": "Reconocimiento",
+    "points": "Puntos"
+  },
+  "fairness": {
+    "1": "Rápido y sencillo — 1 punto",
+    "2": "Requiere algo de esfuerzo — 2 puntos",
+    "3": "Lleva tiempo o cuidado — 3 puntos",
+    "5": "Trabajo grande — 5 puntos"
+  },
+  "schedule": {
+    "daily": "Diario",
+    "weekdays": "Entre semana",
+    "weekly": "Semanal",
+    "once": "Una vez"
+  },
+  "proof": {
+    "none": "Sin prueba",
+    "self_check": "Autocomprobación",
+    "parent_observed": "Visto por un padre",
+    "photo": "Foto",
+    "audio": "Audio",
+    "video": "Vídeo",
+    "iDidIt": "¡Lo hice!",
+    "askToCheck": "Pedir a un padre que lo compruebe",
+    "takePhoto": "Hacer una foto",
+    "record": "Grabar",
+    "stop": "Parar",
+    "recordVideo": "Grabar un vídeo corto",
+    "photoPrivacy": "Las fotos solo se usan para esta tarea y se borran tras la revisión.",
+    "sent": "¡Enviado! Un padre lo mirará.",
+    "sentSelf": "¡Bien! Enviado.",
+    "needsLookExplain": "No pasa nada — un padre solo quiere echar un vistazo.",
+    "micDenied": "No se permitió el acceso al micrófono."
+  },
+  "verification": {
+    "manual": "Manual",
+    "ai_assist": "IA + humano",
+    "auto": "IA auto"
+  },
+  "verificationHint": {
+    "manual": "IA apagada o en silencio; una persona revisa la prueba.",
+    "ai_assist": "La IA añade recomendación y motivo; tú confirmas con un toque.",
+    "auto": "Solo tras un historial manual exitoso en una tarea de bajo riesgo; auditado ~10 %, el niño puede apelar."
+  },
+  "approver": {
+    "auto": "Auto-elegible",
+    "caregiver": "Cuidador",
+    "parent": "Solo padres"
+  },
+  "help": {
+    "title": "Necesito algo",
+    "explain": "Elegir una de estas opciones nunca es un fallo. Un padre recibe una nota para enseñar, simplificar, reprogramar o adaptar.",
+    "need_help": "Necesito ayuda",
+    "too_hard": "Es muy difícil",
+    "something_changed": "Algo cambió",
+    "askParent": "Preguntar a un padre",
+    "route": {
+      "need_help": "Enseñar: muestra un ejemplo o hazlo juntos una vez.",
+      "too_hard": "Simplificar: menos pasos o una versión más pequeña.",
+      "something_changed": "Reprogramar o adaptar."
+    },
+    "action": {
+      "teach": "Lo enseñamos",
+      "simplify": "Simplificar (3 pasos)",
+      "reschedule": "Ampliar ventana"
+    }
+  },
+  "appeal": {
+    "incorrect": "Esto no es correcto",
+    "placeholder": "Cuéntanos qué pasó",
+    "status": "Apelación: {{status}}",
+    "open": "abierta",
+    "upheld": "aceptada",
+    "declined": "sin cambios",
+    "uphold": "Aceptar y aprobar",
+    "decline": "Dejar como está",
+    "childDefault": "No creo que esto sea justo."
+  },
+  "store": {
+    "section": {
+      "quick": "Rápidos",
+      "save_for": "Ahorrar para",
+      "family": "Creados por la familia",
+      "extra_job_money": "Dinero de trabajos extra"
+    },
+    "weekendOnly": "fines de semana",
+    "pending": "pedido",
+    "requested": "¡{{title}} pedido!",
+    "proposed": "¡Enviado a tus padres!",
+    "empty": "Aún no hay premios.",
+    "propose": "Proponer un premio",
+    "proposalPlaceholder": "¿Qué te gustaría?",
+    "suggestedCost": "Coste sugerido",
+    "neverStore": "Nunca en la tienda: tiempo en familia, cariño, comidas, sueño, privacidad, educación, salud, pertenencia.",
+    "fulfil": "Entregado",
+    "declineRefund": "Rechazar y devolver",
+    "proposedBy": "Propuesto por {{name}}"
+  },
+  "reward": {
+    "new": "Nuevo premio",
+    "edit": "Editar premio",
+    "empty": "Aún no hay premios.",
+    "titlePlaceholder": "Nombre del premio",
+    "section": "Sección",
+    "cost": "Coste",
+    "budgetLabel": "Máx. por semana (0 = sin límite)",
+    "budget": "máx. {{n}}/semana",
+    "availability": "Disponibilidad",
+    "forWhom": "Para",
+    "unavailable": "Este premio no está disponible.",
+    "weekendOnly": "Solo fines de semana.",
+    "notEnough": "Aún no hay puntos suficientes.",
+    "declinedRefund": "Devolución: premio rechazado"
+  },
+  "availability": {
+    "always": "Siempre",
+    "weekend": "Fines de semana",
+    "scheduled": "Programado"
+  },
+  "goal": {
+    "none": "Aún no hay meta. Pide a un padre o propón una.",
+    "primary": "meta principal",
+    "secondary": "segunda meta",
+    "estimate": "Unas {{weeks}} semanas normales.",
+    "saveAll": "Ahorrar todo",
+    "reached": "¡Conseguida!",
+    "milestone": "¡{{pct}}% de tu meta!",
+    "waitingApproval": "esperando a un padre",
+    "propose": "Proponer una meta",
+    "target": "Puntos objetivo",
+    "parentTitle": "Metas a largo plazo",
+    "new": "Nueva meta",
+    "focusHint": "Una meta principal y una secundaria opcional por niño.",
+    "abandon": "Parar y devolver",
+    "status": {
+      "active": "activa",
+      "reached": "conseguida",
+      "abandoned": "parada",
+      "proposed": "propuesta"
+    }
+  },
+  "coop": {
+    "title": "Aventura cooperativa",
+    "explain": "Una meta familiar compartida con contribuciones privadas, objetivos flexibles, sin culpas y sin bloquear nada cotidiano.",
+    "yourPart": "Tu parte: {{n}}",
+    "private": "las partes de los demás son privadas",
+    "reached": "¡Lo hicimos juntos!",
+    "status": {
+      "active": "activa",
+      "reached": "conseguida",
+      "archived": "archivada"
+    },
+    "parentOnlySees": "solo lo ven los padres",
+    "adjustTarget": "Ajustar objetivo",
+    "new": "Nueva aventura",
+    "newReplaces": "Nueva aventura (sustituye a la actual)",
+    "titlePlaceholder": "p. ej. Preparar el picnic",
+    "targetCount": "Completados objetivo",
+    "targetHint": "Número de tareas cooperativas completadas entre todos los niños.",
+    "celebration": "Celebración",
+    "celebrationHint": "Un extra opcional — nunca tiempo en familia ni comida habituales."
+  },
+  "avatar": {
+    "unlockAt": "Se desbloquea tras {{n}} tareas aprobadas",
+    "neverSad": "{{n}} tareas aprobadas. Tu compañero nunca se pone triste ni pierde nada."
+  },
+  "me": {
+    "progress": "Mi progreso",
+    "window7": "Últimos 7 días: {{met}} de {{total}} hechas",
+    "window28": "Últimos 28 días: {{pct}}% hechas",
+    "independent": "Empecé solo/a: {{n}} veces",
+    "privateNote": "Solo tú y tus padres veis esto. Sin rankings ni comparaciones.",
+    "stages": "Mis hábitos",
+    "settings": "Mis ajustes"
+  },
+  "freshStart": {
+    "button": "Nuevo comienzo",
+    "explain": "Nuevo comienzo: la ventana de constancia empieza hoy. No se pierde nada ganado."
+  },
+  "reflect": {
+    "button": "Reflexionar",
+    "title": "¿Qué tal la semana?",
+    "easy": "Fácil",
+    "okay": "Bien",
+    "hard": "Difícil",
+    "whatHelped": "¿Qué ayudó?"
+  },
+  "momentum": {
+    "title": "Impulso",
+    "childExplain": "El impulso describe tu ritmo actual, no quién eres. Solo añade un pequeño bono semanal — nunca quita nada.",
+    "pausedChild": "Bono en pausa mientras resolvemos algo juntos.",
+    "skin": "Nombres de nivel",
+    "parentExplain": "Bono de constancia: un bono semanal solo positivo sobre los puntos elegibles de rutina (§1.9). Los valores por defecto son recomendaciones; un Supervisor puede cambiarlos hacia adelante.",
+    "supervisorOnly": "Solo lectura — un Supervisor puede editar",
+    "children": "Niños",
+    "reviewDue": "Periodo de gracia terminado — revisad juntos (candidato: {{level}})",
+    "paused": "en pausa",
+    "keep": "Mantener nivel",
+    "lower": "Bajar un nivel",
+    "levels": "Niveles",
+    "name": "Nombre",
+    "coefficient": "Coeficiente",
+    "minPct": "Mín. %",
+    "windowDays": "Ventana (días)",
+    "cap": "Tope del bono semanal (%)",
+    "capHint": "El bono nunca supera esta parte de los puntos elegibles.",
+    "grace": "Periodo de gracia antes de revisar (días)",
+    "warn": {
+      "below_one": "El nivel {{level}} tiene coeficiente {{value}} (<1.00): es un nivel de penalización y no se recomienda.",
+      "above_max": "El nivel {{level}} tiene coeficiente {{value}} (>1.25): riesgo de inflación.",
+      "cap_high": "El tope semanal {{value}}% es alto.",
+      "order": "El nivel {{level}} exige un porcentaje menor que el nivel anterior."
+    },
+    "forecast": "Previsión económica",
+    "typicalPoints": "Puntos elegibles típicos por semana",
+    "publish": "Publicar",
+    "version": "Configuración v{{v}} — los cambios aplican hacia adelante y se explican al niño.",
+    "confirmTitle": "Confirma",
+    "riskWarning": "Coeficientes por debajo de 1.00 o por encima de 1.25 pueden convertir los niveles en etiquetas morales o en un sistema donde el rico se hace más rico. Los niños nunca pierden puntos ganados en ningún caso.",
+    "confirmToggle": "Entiendo el riesgo y quiero publicar",
+    "confirmWarnings": "Confirma las advertencias antes de publicar.",
+    "explainConfig": "Un padre cambió los niveles de impulso. Aplica desde ahora.",
+    "explainPromote": "¡Alcanzaste un nuevo nivel de impulso!",
+    "explainReview": "El nivel de impulso se revisó juntos."
+  },
+  "praise": {
+    "title": "Coach de elogios",
+    "hint": "Específico, sincero y que apoye la autonomía. Elige uno y edítalo con tus palabras.",
+    "placeholder": "Tu mensaje (opcional)",
+    "approveWith": "Aprobar con mensaje",
+    "genericWarning": "Prueba algo específico en lugar de una etiqueta o un elogio genérico.",
+    "kind": {
+      "observation": "Observación específica",
+      "strategy": "Estrategia",
+      "reflection": "Pregunta de reflexión"
+    },
+    "observation": {
+      "independent": "Empezaste {{task}} sin que nadie te lo recordara.",
+      "steps": "Hiciste los {{steps}} pasos de {{task}}."
+    },
+    "strategy": {
+      "learning": "Seguir los pasos en orden hizo que {{task}} funcionara — es una estrategia que puedes reutilizar.",
+      "routine": "Hacer {{task}} a la misma hora cada día lo hace más fácil. ¿Qué funcionó hoy?"
+    },
+    "reflection": "¿Cómo te sentiste al terminar {{task}} hoy?"
+  },
+  "approve": {
+    "all": "Seleccionar todo",
+    "none": "Limpiar",
+    "selected": "Aprobar {{n}}",
+    "select": "Seleccionar",
+    "approve": "Aprobar",
+    "tryAnother": "Pedir otra prueba",
+    "empty": "Nada pendiente. Disfruta la calma.",
+    "done": "Aprobados {{n}}",
+    "retrySent": "Se pidió otra prueba — no se quitaron puntos.",
+    "notAllowed": "No tienes permiso para aprobar esta tarea.",
+    "someNotAllowed": "Algunos elementos necesitan que los apruebe un padre.",
+    "auditSample": "Muestra de auditoría (auto-aprobado)",
+    "auditOk": "Es correcto",
+    "auditWrong": "La IA se equivocó"
+  },
+  "ai": {
+    "rec": {
+      "looks_ok": "Parece bien",
+      "needs_look": "Hay que mirarlo"
+    },
+    "explain": {
+      "localOnly": "Solo comprobaciones locales — sin duplicados.",
+      "unavailable": "Comprobación IA no disponible; revisa tú.",
+      "duplicate_media": "Parece una foto enviada antes.",
+      "very_small_image": "La imagen es muy pequeña.",
+      "missing_media": "No hay archivo adjunto.",
+      "too_large": "Archivo demasiado grande para la IA.",
+      "typeNotSupported": "La comprobación IA aún no está disponible para este tipo de prueba."
+    }
+  },
+  "family": {
+    "add": "Añadir miembro",
+    "adult": "Adulto",
+    "rolesNote": "Niñera: ve a los niños asignados, aprueba rutinas ordinarias hasta un límite, nunca premios, castigos, dinero ni seguridad. Patrocinador: solo financia premios aprobados y envía ánimos.",
+    "role": "Rol",
+    "newPin": "Nuevo PIN (opcional)",
+    "tempPassword": "Contraseña temporal — debería cambiarla.",
+    "scopedChildren": "Puede ver",
+    "approvalLimit": "Límite de aprobación (puntos base)",
+    "approvalLimitHint": "Rutinas ordinarias con este valor o menos.",
+    "needsSuperUser": "Los cambios de rol y los adultos nuevos requieren la contraseña de recuperación o un código de recuperación.",
+    "superUserTitle": "Comprobación de propietario",
+    "superUserHint": "Escribe la contraseña de propietario de recuperación o un código sin usar."
+  },
+  "role": {
+    "parent": "Padre/madre / Admin",
+    "coparent": "Co-padre/madre",
+    "nanny": "Niñera / cuidador",
+    "sponsor": "Patrocinador familiar",
+    "child": "Niño/a",
+    "supervisor": "Supervisor"
+  },
+  "roleHint": {
+    "parent": "Todos los permisos.",
+    "coparent": "Permisos completos o casi, con historial y deshacer.",
+    "nanny": "Rol limitado: niños asignados, solo rutinas ordinarias.",
+    "sponsor": "Financia premios aprobados por los padres y envía ánimos; no asigna tareas ni ve pruebas."
+  },
+  "profile": {
+    "title": "Perfil ajustable",
+    "hint": "La edad solo fue un preajuste inicial. Ajusta cada dimensión por separado.",
+    "literacy": "Lectura",
+    "pictures": "Imágenes",
+    "simple": "Simple",
+    "full": "Completa",
+    "independence": "Independencia",
+    "guided": "Guiada",
+    "shared": "Compartida",
+    "self": "Autoplanificación",
+    "proofComplexity": "Complejidad de pruebas",
+    "none": "Ninguna",
+    "standard": "Estándar",
+    "planning": "Horizonte de planificación",
+    "day1": "Hoy",
+    "day3": "3 días",
+    "day7": "Semana"
+  },
+  "a11y": {
+    "audio": "Apoyo de audio (leer en voz alta)",
+    "simplifiedLanguage": "Lenguaje simplificado",
+    "largeTargets": "Botones más grandes",
+    "highContrast": "Alto contraste",
+    "reducedMotion": "Menos animación",
+    "extraTime": "Tiempo extra de procesamiento",
+    "soundOff": "Sin sonido"
+  },
+  "independence": {
+    "title": "Modo Independencia",
+    "hint": "Recuperarse tras un bache sin perder progreso; retirar la app cuando las rutinas se afiancen.",
+    "mode": "Modo Independencia (plan autogestionado)",
+    "fadingReminders": "Recordatorios decrecientes",
+    "appFreeDays": "Días sin app",
+    "vacationUntil": "Modo vacaciones hasta",
+    "sickToday": "Hoy está enfermo/a",
+    "printRoutine": "Rutina imprimible",
+    "graduate": "Graduado de la app",
+    "ungraduate": "Volver a la app"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "preset": "Preajuste de control parental",
+    "economy": "Economía",
+    "activeCap": "Tope de hábitos en entrenamiento por niño",
+    "activeCapHint": "Máx. hábitos con puntos frecuentes a la vez (recomendado 3).",
+    "nannyLimit": "Límite de aprobación de la niñera (puntos base)",
+    "aiEnabled": "Pre-revisión IA de pruebas foto/audio/vídeo",
+    "auditPct": "Muestra de auditoría de auto-aprobaciones (%)",
+    "autoHistory": "Revisiones manuales antes de auto-aprobar",
+    "autoHistoryHint": "Una tarea debe pasar tantas revisiones humanas antes de ofrecer la auto-aprobación.",
+    "consequences": "Consecuencias",
+    "responseCost": "Permitir coste de respuesta (pausa de privilegio)",
+    "responseCostHint": "Desactivado por defecto. Solo puede pausar un privilegio pequeño y acordado, relacionado con la norma, hasta 48 h. Nunca puntos, metas, premios comprados ni necesidades básicas.",
+    "coolingOff": "Pausa de enfriamiento del adulto (minutos)",
+    "reminders": "Recordatorios",
+    "quietStart": "Horas de silencio desde",
+    "quietEnd": "Horas de silencio hasta",
+    "remindersPerTask": "Recordatorios por tarea",
+    "schoolMode": "Modo escolar",
+    "holidayMode": "Modo vacaciones",
+    "enableNotifications": "Activar notificaciones",
+    "privacy": "Privacidad",
+    "deleteRaw": "Borrar pruebas originales tras la revisión",
+    "retentionDays": "Retención máx. de pruebas (días)",
+    "privacyNote": "Sin plantillas de baño/dormitorio/comida. Tras borrar solo quedan un hash y la nota de la IA.",
+    "protections": "Protecciones permanentes (no editables)",
+    "recovery": "Recuperación",
+    "regenerateCodes": "Generar nuevos códigos de recuperación",
+    "presetChanged": "Un padre cambió el preajuste de control.",
+    "responseCostChanged": "Se cambió el ajuste de coste de respuesta."
+  },
+  "preset": {
+    "simple": "Simple",
+    "balanced": "Equilibrado",
+    "independent": "Independiente",
+    "custom": "Personalizado"
+  },
+  "presetHint": {
+    "simple": "Dos hábitos, un recordatorio, IA apagada.",
+    "balanced": "Tres hábitos, aprobación asistida por IA.",
+    "independent": "Autoplanificación, sin recordatorios automáticos.",
+    "custom": "Tu propia mezcla."
+  },
+  "protect": {
+    "basicNeeds": "Necesidades básicas, cariño, comidas, sueño, educación y salud nunca son condicionales.",
+    "privacy": "Privacidad por defecto; nunca se piden pruebas sensibles.",
+    "historicalEarnings": "Los puntos ya ganados nunca se quitan.",
+    "noShame": "Sin textos de vergüenza, zonas rojas, comparaciones entre hermanos ni sonidos de fallo.",
+    "noAiConsequences": "La IA y los cuidadores nunca imponen consecuencias.",
+    "noNegativeBalance": "Los saldos nunca bajan de cero."
+  },
+  "repair": {
+    "title": "Reparación",
+    "childTitle": "Algo que reparar",
+    "explain": "Pausa → Entender → Reparar → Apoyar → Cerrar. El objetivo es aprender y restaurar — nunca rebajar al niño.",
+    "open": "Iniciar una pausa",
+    "coaching": "Esta semana hay muchas correcciones. Considera simplificar expectativas y reconectar.",
+    "parentOnly": "Solo los padres pueden iniciar esto — nunca niñeras ni la IA.",
+    "closed": "Cerradas",
+    "undone": "deshecho",
+    "rule": "Norma relacionada",
+    "whatHappened": "Qué pasó (en palabras sencillas)",
+    "safetyRule": "Norma crítica de seguridad (pausa el bono de impulso para revisión)",
+    "coolingNote": "Empieza ahora una pausa de {{min}} minutos.",
+    "startPause": "Empezar",
+    "coolingUntil": "Enfriamiento hasta {{time}}",
+    "childExplanation": "Lo que verá el niño",
+    "childExplanationPlaceholder": "Corto, amable, concreto",
+    "causes": "Antes de una consecuencia, comprueba",
+    "plan": "Plan de reparación",
+    "planHint": "Algo que arregle o restaure — relacionado con lo que pasó.",
+    "responseCost": "Coste de respuesta (opcional)",
+    "privilege": "Privilegio",
+    "support": "Apoyo",
+    "supportHint": "Qué cambiaremos para que la próxima vez vaya mejor.",
+    "appeal": "apelación de incidente",
+    "appealOpen": "el niño apeló"
+  },
+  "cause": {
+    "unclear_expectations": "Expectativas poco claras",
+    "missing_skill": "Falta una habilidad",
+    "sensory_overload": "Sobrecarga sensorial",
+    "fatigue": "Cansancio",
+    "stress": "Estrés",
+    "unrealistic_task": "Tarea poco realista",
+    "none": "Ninguna de estas"
+  },
+  "incident": {
+    "step": {
+      "pause": "Pausa",
+      "understand": "Entender",
+      "repair": "Reparar",
+      "support": "Apoyar",
+      "closed": "Cerrar"
+    },
+    "explain": {
+      "pause": "Hicimos una pausa para calmarnos. Aún no se ha decidido nada.",
+      "understand": "Estamos viendo qué se interpuso.",
+      "repair": "Acordamos una forma de arreglarlo.",
+      "support": "Cambiamos algo para que la próxima vez sea más fácil.",
+      "closed": "Cerrado. Nada de lo que ganaste se tocó."
+    },
+    "explainOpen": "Un padre inició una pausa. Lo hablaréis juntos tras un breve descanso.",
+    "explainResponseCost": "Un privilegio acordado queda en pausa un rato.",
+    "responseCostChild": "{{privilege}} está en pausa hasta {{until}}.",
+    "coolingOff": "La pausa de enfriamiento sigue en marcha.",
+    "parentOnly": "Solo un padre puede hacer esto."
+  },
+  "responseCost": {
+    "disabled": "El coste de respuesta está desactivado en Ajustes.",
+    "parentOnly": "Solo un padre puede aplicarlo.",
+    "needPrivilege": "Indica el privilegio acordado.",
+    "bounded": "Entre 1 y 48 horas."
+  },
+  "agreement": {
+    "title": "Acuerdo familiar",
+    "explain": "Lenguaje sencillo, elecciones reales, asentimiento según la edad — revisado cada 4–6 semanas.",
+    "reviewDue": "Toca la revisión familiar.",
+    "intro": "Introducción",
+    "rules": "Normas",
+    "rulesHint": "Concretas y pocas. Opcionalmente indica el privilegio relacionado para un coste de respuesta.",
+    "privilege": "privilegio",
+    "addRule": "Añadir norma",
+    "reviewEvery": "Revisar cada (semanas)",
+    "versionLine": "Versión {{v}} · próxima revisión {{date}}",
+    "assents": "Asentimiento",
+    "assentOld": "asintió a v{{v}}",
+    "notYet": "todavía no",
+    "assentNote": "El asentimiento es voluntario; el niño puede pedir un cambio en su lugar.",
+    "changeRequests": "Solicitudes de cambio",
+    "cr": {
+      "open": "abierta",
+      "accepted": "aceptada",
+      "declined": "rechazada"
+    },
+    "assent": "Estoy de acuerdo",
+    "assented": "De acuerdo",
+    "requestChange": "Pedir un cambio",
+    "explainUpdate": "Se actualizó el acuerdo familiar.",
+    "defaultIntro": "Somos un equipo. Nos ayudamos, decimos lo que necesitamos y los errores sirven para aprender.",
+    "defaultRule1": "Las cosas vuelven a su sitio después de usarlas.",
+    "defaultRule2": "La ropa va a la cesta, no al suelo.",
+    "defaultRule3": "Ordenamos nuestros cuartos a las horas acordadas."
+  },
+  "digest": {
+    "title": "Resumen semanal",
+    "weekOf": "Semana del {{date}}",
+    "worked": {
+      "title": "Qué funcionó",
+      "completed": "{{n}} tareas aprobadas",
+      "independent": "{{n}} empezadas sin recordatorio",
+      "up": "{{n}} más que la semana pasada",
+      "none": "Una semana tranquila — está bien."
+    },
+    "friction": {
+      "title": "Dónde hubo fricción",
+      "help": "{{n}} peticiones de ayuda",
+      "needsLook": "{{n}} pruebas necesitaron un segundo vistazo",
+      "corrections": "{{n}} correcciones esta semana",
+      "delay": "Las aprobaciones tardaron ~{{n}} min de media",
+      "none": "No se notó fricción."
+    },
+    "suggest": {
+      "title": "Un ajuste sugerido",
+      "keep": "Sigue como hasta ahora.",
+      "simplify": "Simplifica expectativas y reconecta: menos tareas, más enseñanza.",
+      "teach": "Muestra un ejemplo o haz la tarea juntos una vez.",
+      "batch": "Aprueba en un solo lote diario para reducir la demora.",
+      "reduceProof": "La confianza crece — reduce la prueba a autocomprobación en una tarea.",
+      "graduate": "Un hábito parece estable — considera pasarlo a Independiente o Graduado."
+    }
+  },
+  "balance": {
+    "title": "Revisión de equilibrio del sistema",
+    "proofBurden": "La carga de pruebas es alta (sobre todo foto/vídeo).",
+    "independentDown": "Los inicios independientes bajaron respecto a la semana pasada.",
+    "tooManyTasks": "{{n}} tareas con puntos activas — más de lo recomendado.",
+    "ok": "Nada inusual.",
+    "disclaimer": "Solo patrones observables — esto nunca pretende detectar pereza, honestidad, personalidad, ánimo ni motivación."
+  },
+  "audit": {
+    "title": "Historial de cambios",
+    "explain": "Registro solo de adición: aprobaciones, puntos, ajustes, accesos y roles."
+  },
+  "starter": {
+    "title": "Modo Inicial",
+    "explain": "Siete días, tres tareas, dos premios, una meta — y un éxito de práctica garantizado.",
+    "dayOf": "Día {{day}} de inicio",
+    "begin": "Empezar los 7 días",
+    "completed": "Modo Inicial completado. Mantenlo pequeño.",
+    "checklist": "Lista",
+    "finish": "Terminar el Modo Inicial",
+    "check": {
+      "child": "Un perfil de niño",
+      "tasks": "Al menos 3 tareas",
+      "rewards": "Al menos 2 premios",
+      "goal": "Una meta a largo plazo",
+      "success": "Un éxito de práctica aprobado"
+    },
+    "tip": {
+      "1": "Día 1: haz una tarea juntos y apruébala de inmediato — el éxito garantizado.",
+      "2": "Día 2: deja que el niño abra Hoy solo; quédate cerca.",
+      "3": "Día 3: usa el Coach de elogios una vez con una observación específica.",
+      "4": "Día 4: fíjate en los recordatorios — ¿se puede quitar uno?",
+      "5": "Día 5: mirad la tienda juntos; ¿el primer premio es alcanzable?",
+      "6": "Día 6: pregunta '¿Fácil / Bien / Difícil?' sobre una tarea.",
+      "7": "Día 7: revisad el acuerdo y decidid qué mantener."
+    },
+    "installTitle": "Instalar en los dispositivos de los niños",
+    "installHint": "Abre este sitio en el navegador de cada tableta o móvil y elige 'Añadir a pantalla de inicio'. Funciona sin conexión."
+  },
+  "guide": {
+    "title": "Guía para padres",
+    "tipOfDay": "Consejo del día",
+    "tip": {
+      "0": "Elogia la estrategia, no el rasgo: 'Recordaste los tres pasos' es mejor que 'Qué listo eres'.",
+      "1": "Tres hábitos activos son suficientes. Todo lo demás: reconocimiento.",
+      "2": "Un día perdido es información, no un fallo. Pregunta qué se interpuso.",
+      "3": "Retira los puntos cuando el hábito se estabilice — la meta es graduarse, no pagar para siempre.",
+      "4": "Nunca pagues por amabilidad, honestidad o comer. Lo que ya les gusta: registra, no premies.",
+      "5": "Las consecuencias reparan; no rebajan el estatus. Primero, calma.",
+      "6": "Si dejas de responder, el sistema pierde sentido. Dos minutos al día bastan."
+    },
+    "loop": {
+      "title": "El ciclo central",
+      "body": "Entender → enseñar → apoyar → reforzar → graduar. Los puntos son un andamio temporal. Antes de añadir puntos, comprueba que la tarea se entiende, es factible, se ha practicado y tiene apoyo."
+    },
+    "points": {
+      "title": "Puntos, dinero o nada",
+      "body": "Cuidado personal y contribuciones básicas: reconocimiento, puntos temporales mientras se aprende.\nRutinas y esfuerzo escolar: solo puntos, nunca dinero por notas.\nTrabajos extra: con dinero (libro en V2).\nAmabilidad, honestidad, comer: nunca se premian sistemáticamente.\nLo que ya les gusta: registra, no premies."
+    },
+    "praise": {
+      "title": "Comentarios que ayudan",
+      "body": "Observación específica, reconocimiento de estrategia, pregunta de reflexión. Sincero, informativo y que apoye la autonomía. El reconocimiento neutral también vale."
+    },
+    "consequences": {
+      "title": "Consecuencias",
+      "body": "Pausa → Entender → Reparar → Apoyar → Cerrar. La pérdida de puntos está desactivada por defecto. Nunca por la IA ni la niñera. Sin vergüenza, zonas públicas, comparaciones ni pérdida de lo ganado."
+    },
+    "progress": {
+      "title": "Progreso y hermanos",
+      "body": "Progreso privado, ventanas de constancia ('5 de 7'), sin clasificaciones. Metas cooperativas con contribuciones privadas y sin castigos colectivos."
+    },
+    "privacy": {
+      "title": "Privacidad",
+      "body": "Captura visible, sin plantillas de zonas sensibles, pruebas borradas tras la revisión, sin anuncios ni venta de datos. Los niños ven quién aprobó o cambió algo."
+    },
+    "seekHelp": {
+      "title": "Cuándo buscar ayuda profesional",
+      "body": "Conflictos intensos persistentes, cambios repentinos de conducta, problemas de sueño o alimentación, comentarios de autolesión o malestar que no cede al simplificar expectativas: habla con un pediatra o profesional de salud mental. Esta app no es un sustituto."
+    }
+  },
+  "progress": {
+    "routine": "Rutina",
+    "reminders": "recordatorios: {{n}}",
+    "earned": "ganados",
+    "bonus": "bono",
+    "balance": "saldo",
+    "baseVsBonus": "El bono es el {{pct}}% de los puntos base ganados.",
+    "graduation": "Señales de graduación",
+    "suggestGraduate": "considera graduar"
+  },
+  "submission": {
+    "retryExplain": "Un padre pidió otra prueba. No se quitaron puntos."
+  },
+  "member": {
+    "roleChanged": "Cambió un rol en la familia.",
+    "supervisorChanged": "Cambiaron los permisos de Supervisor."
+  },
+  "ledger": {
+    "negativeBalance": "No hay puntos suficientes."
+  },
+  "templates": {
+    "teeth": {
+      "title": "Lavarse los dientes",
+      "done": "Dientes cepillados 2 minutos, cepillo enjuagado.",
+      "step1": "Pasta en el cepillo",
+      "step2": "Cepillar 2 minutos",
+      "step3": "Enjuagar y guardar el cepillo"
+    },
+    "bed": {
+      "title": "Hacer la cama",
+      "done": "Manta lisa, almohada arriba.",
+      "step1": "Subir la manta",
+      "step2": "Alisarla",
+      "step3": "Almohada arriba"
+    },
+    "toys": {
+      "title": "Juguetes en su sitio",
+      "done": "No hay juguetes en el suelo.",
+      "step1": "Recoger los juguetes del suelo",
+      "step2": "Ponerlos en sus cajas",
+      "step3": "Cajas en la estantería"
+    },
+    "clothes": {
+      "title": "Ropa en la cesta",
+      "done": "Sin ropa en el suelo ni en la silla.",
+      "step1": "Recoger la ropa",
+      "step2": "La usada a la cesta",
+      "step3": "La limpia doblada en el estante"
+    },
+    "table": {
+      "title": "Poner la mesa",
+      "done": "Platos, cubiertos y vasos para todos.",
+      "step1": "Platos",
+      "step2": "Tenedores y cucharas",
+      "step3": "Vasos"
+    },
+    "homework": {
+      "title": "Rutina de deberes",
+      "done": "Agenda revisada y todas las tareas hechas.",
+      "step1": "Abrir la agenda",
+      "step2": "Hacer cada tarea",
+      "step3": "Marcarla",
+      "step4": "Preparar la mochila"
+    },
+    "reading": {
+      "title": "Tiempo de lectura",
+      "done": "15 minutos de lectura.",
+      "step1": "Elegir un libro",
+      "step2": "Leer 15 minutos",
+      "step3": "Poner el marcapáginas"
+    },
+    "room": {
+      "title": "Ordenar tu cuarto",
+      "done": "Suelo despejado, escritorio despejado, cama hecha.",
+      "step1": "Ropa guardada",
+      "step2": "Escritorio despejado",
+      "step3": "Suelo despejado",
+      "step4": "Cama hecha",
+      "step5": "Papelera vaciada"
+    },
+    "pushups": {
+      "title": "Serie de flexiones",
+      "done": "Hecho el número acordado de flexiones.",
+      "step1": "Calentar",
+      "step2": "Hacer la serie",
+      "step3": "Estirar"
+    },
+    "dishes": {
+      "title": "Fregar",
+      "done": "Fregadero vacío, platos secándose.",
+      "step1": "Raspar los platos",
+      "step2": "Lavar",
+      "step3": "Aclarar",
+      "step4": "Poner en el escurridor"
+    },
+    "car": {
+      "title": "Lavar el coche",
+      "done": "Coche lavado y secado.",
+      "step1": "Mojar",
+      "step2": "Enjabonar",
+      "step3": "Aclarar",
+      "step4": "Secar"
+    },
+    "garden": {
+      "title": "Quitar malas hierbas",
+      "done": "Parterre acordado sin malas hierbas.",
+      "step1": "Guantes puestos",
+      "step2": "Arrancar las hierbas",
+      "step3": "Hierbas al cubo"
+    }
+  },
+  "rewardTemplates": {
+    "pickDinner": "Elegir la cena",
+    "extraStory": "Cuento extra antes de dormir",
+    "screenTime": "30 min extra de pantalla",
+    "stayUp": "Acostarse 20 min más tarde",
+    "movieNight": "Noche de cine en familia",
+    "parkTrip": "Excursión al parque",
+    "lego": "Set de Lego",
+    "book": "Libro nuevo"
+  }
+}
