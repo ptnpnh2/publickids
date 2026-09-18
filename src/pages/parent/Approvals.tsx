@@ -99,7 +99,9 @@ export default function Approvals() {
                 {task.exercise && (
                   <p className="text-xs mt-1">
                     💪 {t('approve.repsClaimed', { n: s.repsClaimed ?? task.exercise.reps, target: task.exercise.reps })}
-                    <input className="input inline-block w-20 ml-2 py-0" type="number" min={0} defaultValue={s.repsClaimed ?? task.exercise.reps} onChange={(e) => (repsRef.current[s.id] = Number(e.target.value))} aria-label={t('approve.repsCounted')} />
+                    {s.repsAuto && <span className={`chip ml-2 ${s.ai?.signals.includes('reps_mismatch') ? 'chip-warn' : 'chip-ok'}`}>📱 {t('approve.autoCount', { n: s.repsAuto.count, pct: Math.round(s.repsAuto.confidence * 100) })}</span>}
+                    {s.ai?.repsCounted !== undefined && <span className={`chip ml-2 ${s.ai.signals.includes('reps_mismatch') ? 'chip-warn' : 'chip-ok'}`}>☁️ {t('approve.serverCount', { n: s.ai.repsCounted, pct: Math.round(s.ai.confidence * 100) })}</span>}
+                    <input className="input inline-block w-20 ml-2 py-0" type="number" min={0} defaultValue={s.ai?.repsCounted ?? s.repsAuto?.count ?? s.repsClaimed ?? task.exercise.reps} onChange={(e) => (repsRef.current[s.id] = Number(e.target.value))} aria-label={t('approve.repsCounted')} />
                   </p>
                 )}
                 {s.reflection && (

@@ -7,6 +7,10 @@ export interface VerifyInput {
   task: Pick<Task, 'title' | 'completionDefinition' | 'microSteps' | 'category'>;
   priorHashes: string[];
   locale: string;
+  exercise?: { kind: string; reps: number };
+  nonce?: string;
+  repsClaimed?: number;
+  repsAuto?: { count: number; confidence: number; trackedPct: number; unit: 'reps' | 'seconds'; model: string };
 }
 
 export interface Verifier {

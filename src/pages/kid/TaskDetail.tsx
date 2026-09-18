@@ -12,6 +12,7 @@ import { appeal, requestHelp, submitTask } from '@/services/submissions';
 import { makeNonce, nonceValid, videoWithinCaps, MAX_VIDEO_SECONDS } from '@/domain/nonce';
 import { reflectionDue, REFLECTION_KINDS } from '@/domain/reading';
 import { requestCameraClip, giveChildAssent } from '@/services/camera';
+import { analyzeClip, type ClipAnalysis } from '@/services/pose';
 import type { HelpKind, ProofMethod, ReflectionKind } from '@/domain/types';
 
 /** Success Card + one main action. A child normally completes in 10–20 seconds. */
@@ -42,6 +43,8 @@ export default function TaskDetail() {
   const [reps, setReps] = useState<number | ''>('');
   const [reflection, setReflection] = useState<{ kind: ReflectionKind; text: string }>({ kind: 'note', text: '' });
   const [cameraBusy, setCameraBusy] = useState(false);
+  const [counting, setCounting] = useState<number | null>(null);
+  const [auto, setAuto] = useState<ClipAnalysis | null>(null);
 
   useEffect(() => {
     if (!recording) return;
@@ -69,15 +72,33 @@ export default function TaskDetail() {
     speechSynthesis.speak(u);
   }
 
+  /** On-device rep count for exercise clips; failures never block the submission. */
+  async function countClip(blob: Blob): Promise<ClipAnalysis | null> {
+    if (!task?.exercise) return null;
+    try {
+      setCounting(0);
+      const r = await analyzeClip(blob, task.exercise.kind, setCounting);
+      setAuto(r);
+      if (reps === '' && r.confidence >= 0.5) setReps(r.count);
+      return r;
+    } catch {
+      return null;
+    } finally {
+      setCounting(null);
+    }
+  }
+
   async function submit(media?: { blob: Blob; mime: string; hash?: string }, extra: { cameraClip?: { cameraId: string; requestedAt: string; seconds: number } } = {}) {
     if (!task || !me) return;
     setBusy(true);
     setError(null);
+    const autoResult = media && media.mime.startsWith('video/') ? await countClip(media.blob) : null;
     try {
       await submitTask({
         task, child: me, proofMethod: proof, media, note: note || undefined, independentStart: undefined,
         nonce: task.nonce && nonce ? nonce : undefined,
         repsClaimed: task.exercise ? Number(reps) || task.exercise.reps : undefined,
+        repsAuto: autoResult ? { count: autoResult.count, confidence: autoResult.confidence, trackedPct: autoResult.trackedPct, unit: autoResult.unit, model: autoResult.model } : undefined,
         reflection: readingReflect ? { kind: reflection.kind, text: reflection.text || undefined } : undefined,
         cameraClip: extra.cameraClip,
       });
@@ -203,6 +224,8 @@ export default function TaskDetail() {
           {todaySub.status === 'needs_look' && <p className="muted text-sm">{t('proof.needsLookExplain')}</p>}
           {todaySub.nonce && <p className="muted text-xs mt-1">{t('proof.nonceWas', { code: todaySub.nonce.code })}</p>}
           {todaySub.feedback && <p className="mt-2">💬 {todaySub.feedback}</p>}
+          {todaySub.repsAuto && <p className="text-sm mt-1">🤖 {t('proof.autoCounted', { n: todaySub.repsAuto.count, unit: t(`proof.unit.${todaySub.repsAuto.unit}`), pct: Math.round(todaySub.repsAuto.confidence * 100) })}</p>}
+          {todaySub.ai?.repsCounted !== undefined && <p className="text-sm mt-1">☁️ {t('proof.serverCounted', { n: todaySub.ai.repsCounted })}</p>}
           {todaySub.repsCounted !== undefined && <p className="text-sm mt-1">💪 {t('proof.repsCounted', { n: todaySub.repsCounted })}</p>}
           {todaySub.appeal && <p className="muted text-sm mt-2">{t('appeal.status', { status: t(`appeal.${todaySub.appeal.status}`) })}</p>}
           {(todaySub.status === 'needs_look' || todaySub.status === 'submitted') && !todaySub.appeal && (
@@ -278,6 +301,14 @@ export default function TaskDetail() {
                 🎥 {t('proof.recordVideo')}
               </Button>
               <p className="muted text-xs mt-2">{t('proof.videoCaps', { s: MAX_VIDEO_SECONDS })}</p>
+              {task.exercise && <p className="muted text-xs mt-1">{t('proof.autoCountHint')}</p>}
+              {counting !== null && (
+                <div className="mt-2">
+                  <p className="text-sm font-bold pulse">🤖 {t('proof.counting', { pct: counting })}</p>
+                  <div className="progress mt-1"><div style={{ width: `${counting}%` }} /></div>
+                </div>
+              )}
+              {auto && counting === null && <p className="text-sm mt-2">🤖 {t('proof.autoCounted', { n: auto.count, unit: t(`proof.unit.${auto.unit}`), pct: Math.round(auto.confidence * 100) })}</p>}
               {camera && family?.settings.camera.enabled && (
                 <div className="mt-3 divider pt-3">
                   {cameraAssented ? (

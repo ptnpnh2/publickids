@@ -24,6 +24,7 @@ export interface SubmitInput {
   independentStart?: boolean;
   nonce?: { code: string; issuedAt: string; expiresAt: string };
   repsClaimed?: number;
+  repsAuto?: Submission['repsAuto'];
   reflection?: { kind: ReflectionKind; text?: string; mediaId?: string };
   cameraClip?: { cameraId: string; requestedAt: string; seconds: number };
 }
@@ -59,6 +60,7 @@ export async function submitTask(input: SubmitInput): Promise<Submission> {
     independentStart: false,
     nonce: input.nonce,
     repsClaimed: input.repsClaimed,
+    repsAuto: input.repsAuto,
     reflection: input.reflection,
     cameraClip: input.cameraClip,
   };
@@ -73,6 +75,10 @@ export async function submitTask(input: SubmitInput): Promise<Submission> {
       task,
       priorHashes: prior.map((s) => s.proofHash!),
       locale: child.locale,
+      repsClaimed: input.repsClaimed,
+      repsAuto: input.repsAuto,
+      exercise: task.exercise,
+      nonce: input.nonce?.code,
     });
     sub.ai = ai;
     if (ai.recommendation === 'needs_look') sub.status = 'needs_look';
@@ -146,7 +152,7 @@ export async function approveSubmission(actorId: string, submissionId: string, o
     });
     ledgerEntryId = e.id;
   }
-  await db.submissions.update(sub.id, { status: 'approved', resolvedAt: nowISO(), resolvedBy: actorId, autoApproved: !!opts.auto, auditSample: !!opts.auditSample, feedback: opts.feedback, ledgerEntryId, ...(opts.repsCounted !== undefined ? { repsCounted: opts.repsCounted } : {}) });
+  await db.submissions.update(sub.id, { status: 'approved', resolvedAt: nowISO(), resolvedBy: actorId, autoApproved: !!opts.auto, auditSample: !!opts.auditSample, feedback: opts.feedback, ledgerEntryId, ...(opts.repsCounted !== undefined ? { repsCounted: opts.repsCounted } : sub.repsCounted === undefined && task.exercise ? { repsCounted: sub.ai?.repsCounted ?? sub.repsAuto?.count ?? sub.repsClaimed } : {}) });
   await deleteRawProof(sub, sub.familyId);
   await unlockCosmetics(sub.childId);
   if (task.coop) await contributeCoop(sub.familyId, sub.childId);

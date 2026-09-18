@@ -3,16 +3,19 @@
   "private": true,
   "version": "1.2.0",
   "type": "module",
-  "description": "Kids Incentives — a low-friction family app for chores, routines and gradual independence (pre-V2 build: MVP + V1.1 + V1.2 software features).",
+  "description": "Kids Incentives \u2014 a low-friction family app for chores, routines and gradual independence (pre-V2 build: MVP + V1.1 + V1.2 software features).",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc -b"
+    "typecheck": "tsc -b",
+    "postinstall": "node scripts/fetch-pose-assets.mjs",
+    "pose:assets": "node scripts/fetch-pose-assets.mjs"
   },
   "dependencies": {
+    "@mediapipe/tasks-vision": "^1.0.1",
     "dexie": "^4.4.6",
     "dexie-react-hooks": "^1.1.7",
     "i18next": "^25.10.10",

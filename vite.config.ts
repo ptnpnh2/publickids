@@ -30,6 +30,7 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
         navigateFallback: '/index.html',
+        runtimeCaching: [{ urlPattern: /\/pose\//, handler: 'CacheFirst', options: { cacheName: 'pose-assets', expiration: { maxEntries: 8 } } }],
       },
     }),
   ],
